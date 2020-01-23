@@ -1,0 +1,74 @@
+Gluon-CMS
+
+User 
+-id
+-email
+-label
+
+Lang
+-code
+
+Gluon_Entity @ui:style=red
+-id (int,pk)
+-type (string)
+-creationDate (date)
+-modificationDate (date)
+-deletionDate (date)
+-author (User)
+
+Gluon_parameter_* @ui:style=grey
+-entityId (int)
+-key (string)
+-creationDate (date)
+-modificationDate (date)
+-deletionDate (date)
+-author (User)
+
+Gluon_parameter_text @ui:style=blue
+-...
+-langCode (string)
+-value (text)
+
+Gluon_parameter_file @ui:style=blue
+-...
+-url (text)
+-isLocal (boolean)
+
+Gluon_parameter_associated @ui:style=blue
+-...
+-associatedEntityId (int)
+
+Gluon_parameter_location @ui:style=blue
+-...
+-latitude (float)
+-longitude (float)
+-address (text)
+
+Gluon_parameter_flag @ui:style=blue
+-...
+-value (boolean)
+
+Gluon_parameter_number @ui:style=blue
+-...
+-value (int)
+
+Gluon_parameter_user @ui:style=blue
+-...
+-userId
+
+Gluon_parameter_datation @ui:style=blue
+-...
+-userId
+
+gluon_cache_flat_entity
+-idEntity
+-json
+-langCode?
+
+gluon_cache_text_index
+-idEntity
+-parameterKey
+-parameterType?
+-cleanValue (string) //after simplification
+-rawValue (string) //before simplification
+-langCode
