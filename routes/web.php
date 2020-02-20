@@ -14,3 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+//middleware API
+Route::get('api/get/{id}', 'GluonApiController@get');
+Route::get('api/list/{type}', 'GluonApiController@list');
