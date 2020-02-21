@@ -82,17 +82,36 @@ class GluonEntitySeeder extends Seeder
             'value' => 'This is another very long content'
         ]);
 
+        DB::table('gluon_param_text')->insert([
+            'gluon_entity_id' => 3,
+            'key' => 'title',
+            'lang_code' => 'fr',
+            'value' => 'Ceci est un troisième titre'
+        ]);
+
+        DB::table('gluon_param_text')->insert([
+            'gluon_entity_id' => 3,
+            'key' => 'title',
+            'lang_code' => 'en',
+            'value' => 'This is a third title'
+        ]);
+
         DB::table('gluon_param_related')->insert([
             'gluon_entity_id' => 1,
             'key' => 'associated',
             'related_entity_id' => 2,
-            
         ]);
 
         DB::table('gluon_param_related')->insert([
             'gluon_entity_id' => 2,
             'key' => 'associated',
             'related_entity_id' => 1,
+        ]);
+
+        DB::table('gluon_param_related')->insert([
+            'gluon_entity_id' => 1,
+            'key' => 'associated',
+            'related_entity_id' => 3,
         ]);
     }
 }
