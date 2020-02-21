@@ -21,9 +21,6 @@ class CreateGluonEntityCoreTable extends Migration
             $table->timestamps();
         });
 
-
-
-
         Schema::create('gluon_param_number', function (Blueprint $table) {
             $table->unsignedBigInteger('gluon_entity_id');
             $table->foreign('gluon_entity_id')->references('id')->on('gluon_entity');
@@ -57,6 +54,8 @@ class CreateGluonEntityCoreTable extends Migration
             $table->string('key')->index();
             $table->unsignedBigInteger('related_entity_id');
             $table->foreign('related_entity_id')->references('id')->on('gluon_entity');
+
+            $table->unsignedInteger('rank')->default(0);
 
             $table->softDeletes();
             $table->timestamps();

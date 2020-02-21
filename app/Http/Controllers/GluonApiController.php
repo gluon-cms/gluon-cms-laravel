@@ -23,6 +23,7 @@ class GluonApiController extends Controller
             'text__content.value as entity__text__content',
 
             'related__associated.related_entity_id as related__associated__id',
+            'related__associated.rank as related__associated__rank',
             'related__associated__text__title.value as related__associated__text__title',
         ]);
 
@@ -38,7 +39,7 @@ class GluonApiController extends Controller
             $join->where('text__content.key', '=', 'content');
         });
 
-        //related
+        //related "associated"
         $query->leftJoin('gluon_param_related as related__associated', function ($join) {
             $join->on('related__associated.gluon_entity_id', '=', 'gluon_entity.id');
             $join->where('related__associated.key', '=', 'associated');
@@ -52,9 +53,12 @@ class GluonApiController extends Controller
 
 
         //$query->where('gluon_entity.id', $id);
-        $query->orderBy('entity_id');
-        //$query->orderBy('entity__text__title');
+        //$query->orderBy('entity_id');
+        //$query->orderBy('entity__text__title', 'DESC');
 
+        $query->orderBy('entity__text__title');
+        $query->orderBy('related__associated__rank'); //all ranks here !
+        
         $lines = $query->get();
 
 
