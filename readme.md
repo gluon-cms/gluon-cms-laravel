@@ -10,6 +10,7 @@ It provide an unified SQL data model for all your CMS needs.
 * configure stuffs in .env (DB_* especially)
 * create your local database
 * php artisan migrate
+* php artisant db:seed
 
 ## Developpement
 
