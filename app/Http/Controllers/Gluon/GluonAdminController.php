@@ -13,11 +13,15 @@ class GluonAdminController extends \App\Http\Controllers\Controller
         $entities = Gluon::getList($type);
         $entityDescription = GluonConfig::getDescription($type);
 
+        $typeList = GluonConfig::getTypeList();
+
         return view('gluon.admin.list', [
             'type' => $type,
             'entities' => $entities,
             'firstEntity' => $entities[0],
             'description' => $entityDescription,
+
+            'typeList' => $typeList
             //'pagination' => $pagination
         ]);
     }

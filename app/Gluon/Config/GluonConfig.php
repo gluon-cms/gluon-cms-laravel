@@ -6,9 +6,9 @@ use Config;
 class GluonConfig
 {
 
-    public function getEntities(){
-        $entities = Config::get("gluon.entities");
-        dd($entities);
+    public function getTypeList(){
+        $types = array_keys(Config::get("gluon.entities"));
+        return $types;
     }
 
     public function getDescription($type){

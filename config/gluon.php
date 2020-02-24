@@ -7,7 +7,8 @@ return [
     | Entities descriptions
     |--------------------------------------------------------------------------
     |
-    | Here you define your CMS entities
+    | Here you define your CMS entities, how you want to build them and how you
+    | want to query them.
     |
     */
 
@@ -16,14 +17,50 @@ return [
             'text.title',
             'text.content',
 
-            //'related.associated (article[])',
-            //'related.author (artist)'
+            //'toMany.associated',
+            //'toOne.author'
         ],
 
         'artist' => [
             'text.fullname',
             'text.bio'
+        ],
+
+        'place' => [
+            'text.label',
+            'text.description',
+
+            //'geo.location'
+        ],
+
+        'event' => [
+            'text.title',
+
+            //'toMany.representations'
+        ],
+
+        'representation' => [
+            //'date.startDate'
+            //'date.endDate'
+
+            //'toOne.event'
+        ],
+
+        'genre' => [
+            'text.label',
+        ],
+
+        'category' => [
+            'text.label',
         ]
+    ],
+
+    'admin' => [
+        'article.toMany.associated' => ['article'],
+        'article.toOne.author' => ['artist'],
+
+        'representation.toOne.event' => ['event'], //reverse  => event.toMany.representations
+        'event.toMany.representations' => ['representation'], //reverse  => representation.toOne.event
     ],
 
     'templates' => [
@@ -35,9 +72,4 @@ return [
             'related.author.fullname'
         ]
     ],
-
-
-    //'admin?'
-
-    //1 seul obj ?
 ];

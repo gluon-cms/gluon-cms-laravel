@@ -6,19 +6,30 @@
 
         <title>Gluon - Admin</title>
 
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/gluon.admin.css') }}">
+
     </head>
-    <body>
-        <section>
+    <body class="gluonAdmin">
+        <section class="container">
             <header>
-                <h1>@yield('page-title')</h1>
+                <div>
+                    
+                </div>
             </header>
 
             <main>
-                @yield('main-content')
+                <div class="mainContent">
+                    <h1>@yield('page-title')</h1>
+                    @yield('main-content')
+                </div>
+                
             </main>
 
             <aside>
-                @yield('aside-content')
+                <div class="asideContent">
+                    @yield('aside-content')
+                </div>
             </aside>
 
             <footer>

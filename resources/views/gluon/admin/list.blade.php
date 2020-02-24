@@ -1,10 +1,12 @@
 @extends('gluon.admin.layout')
 
-@section('page-title', 'Hello')
+@section('page-title', "$type / List")
 
 @section('aside-content')
     <ul>
-        <li>...</li>
+        @foreach ($typeList as $type)
+        <li><a href="{{ url("admin/list", [$type]) }}">{{ $type }}</a></li>
+        @endforeach
     </ul>
 @endsection
 
