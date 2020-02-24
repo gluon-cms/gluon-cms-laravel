@@ -17,5 +17,11 @@ Route::get('/', function () {
 
 
 //middleware API
-Route::get('api/get/{id}', 'GluonApiController@get');
-Route::get('api/list/{type}', 'GluonApiController@list');
+Route::get('api/get/{id}', 'Gluon\GluonApiController@get');
+Route::get('api/list/{type}', 'Gluon\GluonApiController@list');
+
+
+//middleware ADMIN
+Route::get('admin', 'Gluon\GluonAdminController@home');
+Route::get('admin/list/{type}', 'Gluon\GluonAdminController@list');
+Route::get('admin/get/{id}', 'Gluon\GluonAdminController@get');

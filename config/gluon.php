@@ -16,8 +16,8 @@ return [
             'text.title',
             'text.content',
 
-            'related.associated (article[])',
-            'related.author (artist)'
+            //'related.associated (article[])',
+            //'related.author (artist)'
         ],
 
         'artist' => [

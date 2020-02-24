@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Gluon;
 
 use Illuminate\Http\Request;
 use Gluon;
 
-class GluonApiController extends Controller
+class GluonApiController extends \App\Http\Controllers\Controller
 {
 
     public function get($id) {

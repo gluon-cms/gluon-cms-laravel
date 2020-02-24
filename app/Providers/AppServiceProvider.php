@@ -16,6 +16,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind('gluon',function() {
             return new \App\Gluon\Sql\GluonSql;
         });
+
+        $this->app->bind('gluonConfig',function() {
+            return new \App\Gluon\Config\GluonConfig;
+        });
     }
 
     /**

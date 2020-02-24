@@ -227,6 +227,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Gluon' => App\Gluon\Bridge\GluonFacade::class,
+        'GluonConfig' => App\Gluon\Bridge\GluonConfigFacade::class,
     ],
 
 ];
