@@ -11,14 +11,18 @@ class GluonSql {
         $this->queryBuilder = new GluonSqlQueryBuilder();
     }
 
-    public function getOne($type, $condition) { 
+    public function getOne($condition) { 
         $template = ['text.title', 'text.content', 'number.score'] ;
         //$template = ['text.title', 'text.content', 'related.associated.text.title']
 
-        $lines = $this->queryBuilder->build($template)->get();
+        $conditions = [
+            ['gluon_entity.id', '=', $condition]
+        ];
+
+        $lines = $this->queryBuilder->build($template, $conditions)->get();
 
         $hydrator = new GluonSqlHydrator();
-        return $hydrator->hydrateOne($lines);
+        return $hydrator->hydrateOne($template, $lines);
     }
 
     public function getList($type) {

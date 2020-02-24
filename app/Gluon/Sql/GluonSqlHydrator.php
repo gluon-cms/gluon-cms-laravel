@@ -67,4 +67,14 @@ class GluonSqlHydrator
         return $entities;
     }
 
+    public function hydrateOne($template, $lines){
+        $entities = $this->hydrateList($template, $lines);
+
+        if (count($entities) == 0){
+            return null;
+        }
+
+        return $entities[0];
+    }
+
 }
