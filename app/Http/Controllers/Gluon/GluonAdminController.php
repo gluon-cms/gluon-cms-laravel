@@ -9,19 +9,19 @@ use GluonConfig;
 class GluonAdminController extends \App\Http\Controllers\Controller
 {
 
-    public function list($type) {
-        $entities = Gluon::getList($type);
-        $entityDescription = GluonConfig::getDescription($type);
-
-        $typeList = GluonConfig::getTypeList();
+    //@todo call sub controller pour aside
+    public function list($entityType) {
+        $entityTypeList = GluonConfig::getEntityTypeList();
+        $entityDefinition = GluonConfig::getDefinition($entityType);
+        $entityList = Gluon::getList($entityType);
 
         return view('gluon.admin.list', [
-            'type' => $type,
-            'entities' => $entities,
-            'firstEntity' => $entities[0],
-            'description' => $entityDescription,
+            'entityType' => $entityType,
+            'entityList' => $entityList,
+            'firstEntity' => isset($entityList[0]) ? $entityList[0] : null,
+            'entityDefinition' => $entityDefinition,
 
-            'typeList' => $typeList
+            'entityTypeList' => $entityTypeList
             //'pagination' => $pagination
         ]);
     }

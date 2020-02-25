@@ -1,32 +1,36 @@
 @extends('gluon.admin.layout')
 
-@section('page-title', "$type / List")
+@section('page-title', trans("gluon.${entityType}_plural"))
 
 @section('aside-content')
-    <ul>
-        @foreach ($typeList as $type)
-        <li><a href="{{ url("admin/list", [$type]) }}">{{ $type }}</a></li>
+    <ul class="entityTypeList">
+        @foreach ($entityTypeList as $type)
+        <li class="entityTypeList__entity $type"><a href="{{ url("admin/list", [$type]) }}">{{ trans("gluon.${type}_plural") }}</a></li>
         @endforeach
     </ul>
 @endsection
 
 @section('main-content')
 
-    <table>
-
+    <table class="entityList">
+        <thead>
         <tr>
-            <td>id</td>
-            <td>type</td>
+            <th>{{ trans("gluon.entity_id") }}</th>
+            <th>{{ trans("gluon.entity_type") }}</th>
 
-            @foreach ($firstEntity->getTypes() as $property => $type)
-                <td>{{ $property }} ({{ $type }})</td>
+            @foreach ($firstEntity->getTypes() as $parameter => $parameterType)
+                <th>
+                    <span class="parameter">{{ trans("gluon.parameter_$parameter") }}</span>
+                    <span class="parameterType">{{ trans("gluon.parameter_type_$parameterType") }}</span>
+                </th>
             @endforeach
 
-
-            <td>actions</td>
+            <th>{{ trans("gluon.ui.actions") }}</th>
         </tr>
+        </thead>
 
-        @foreach ($entities as $entity)
+        <tbody>
+        @foreach ($entityList as $entity)
 
             <tr>
                 <td>{{ $entity->id }}</td>
@@ -36,11 +40,13 @@
                     <td>{{ $entity->getValue($property) }}</td>
                 @endforeach
 
-                <td><a href="{{ url("admin/get", [$entity->id]) }}">détails</a></td>
+                <td><a href="{{ url("admin/get", [$entity->id]) }}">{{ trans("gluon.ui.action_details") }}</a></td>
             </tr>  
         @endforeach
-
+        </tbody>
 
     </table>
+
+    
 
 @endsection

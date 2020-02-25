@@ -6,21 +6,21 @@ use Config;
 class GluonConfig
 {
 
-    public function getTypeList(){
-        $types = array_keys(Config::get("gluon.entities"));
+    public function getEntityTypeList(){
+        $types = array_keys(Config::get("gluonEntities.definitions"));
         return $types;
     }
 
-    public function getDescription($type){
-        $description = Config::get("gluon.entities.$type");
-        return $this->completeDescription($description);
+    public function getDefinition($type){
+        $definition = Config::get("gluonEntities.definitions.$type");
+        return $this->completeDefinition($definition);
     }
 
-    public function completeDescription($description){
-        array_unshift($description, 'type');
-        array_unshift($description, 'id');
+    public function completeDefinition($definition){
+        array_unshift($definition, 'type');
+        array_unshift($definition, 'id');
 
-        return $description;
+        return $definition;
     }
 
 }

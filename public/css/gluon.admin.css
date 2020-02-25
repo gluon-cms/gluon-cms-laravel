@@ -14,7 +14,25 @@
     background: #cccccc;
 }
 
-
 .gluonAdmin .mainContent {
     padding: 1em;
 }
+
+
+
+.entityTypeList {
+
+}
+
+/*
+table,
+thead,
+  tbody,
+  th,
+  tr,
+  td {
+    text-align: left;
+    display: block;
+    width: auto;
+    background: yellow;
+  }*/

@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Entities descriptions
+    | Gluon based entities
     |--------------------------------------------------------------------------
     |
     | Here you define your CMS entities, how you want to build them and how you
@@ -12,7 +12,8 @@ return [
     |
     */
 
-    'entities' => [
+    'definitions' => [
+
         'article' => [
             'text.title',
             'text.content',
@@ -55,6 +56,8 @@ return [
         ]
     ],
 
+
+/*
     'admin' => [
         'article.toMany.associated' => ['article'],
         'article.toOne.author' => ['artist'],
@@ -62,6 +65,8 @@ return [
         'representation.toOne.event' => ['event'], //reverse  => event.toMany.representations
         'event.toMany.representations' => ['representation'], //reverse  => representation.toOne.event
     ],
+*/
+/*
 
     'templates' => [
         'article--light' => [
@@ -71,5 +76,5 @@ return [
             'related.associated.title',
             'related.author.fullname'
         ]
-    ],
+    ],*/
 ];
