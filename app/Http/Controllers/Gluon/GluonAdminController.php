@@ -31,9 +31,9 @@ class GluonAdminController extends \App\Http\Controllers\Controller
         $entityDefinition = GluonConfig::getDefinition($entity->type);
 
         return view('gluon.admin.get', [
-            'type' => $entity->type,
+            'entityType' => $entity->type,
+            'entityDefinition' => $entityDefinition,
             'entity' => $entity,
-            'entityDefinition' => $entityDefinition
         ]);
     }
 }
