@@ -8,12 +8,9 @@
 
 @section('main-content')
     
-    @foreach ($entity->getTypes() as $property => $type)
+    @foreach ($entity->getTypes() as $propertyName => $type)
         <div>
-            {{ $property }} ({{ $type }}) : 
-            {{ $entity->getValue($property) }} --
-
-            @json($entity->getValue($property), JSON_PRETTY_PRINT)
+            @include('gluon.admin.form.form_' . $type, ['value' => $entity->getValue($propertyName), 'entity' => $entity, 'propertyName' => $propertyName, 'type' => $type])
         </div>
 
     @endforeach
