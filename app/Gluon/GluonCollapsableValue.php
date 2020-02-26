@@ -13,7 +13,7 @@ class GluonCollapsableValue implements \JsonSerializable
     }
 
     public function jsonSerialize() {
-        return $this;
+        return $this->default;
     }
 
     public function __toString(){
