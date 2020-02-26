@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Gluon\Sql;
+
 use App\Gluon\GluonEntityResult;
+use App\Gluon\GluonCollapsableValue;
 
 class GluonSqlHydrator
 {
@@ -45,7 +47,8 @@ class GluonSqlHydrator
                 }
 
                 list($propertyType, $propertyKey) = explode('__', $propertyName);
-                $entity->set($propertyType, $propertyKey, $propertyValue);
+                $value = $propertyType == 'text' ? new GluonCollapsableValue($propertyValue) : $propertyValue;
+                $entity->set($propertyType, $propertyKey, $value);
             }
 
             /*
