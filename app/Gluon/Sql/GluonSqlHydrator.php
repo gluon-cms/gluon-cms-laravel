@@ -3,7 +3,7 @@
 namespace App\Gluon\Sql;
 
 use App\Gluon\GluonEntityResult;
-use App\Gluon\GluonCollapsableValue;
+use App\Gluon\GluonMap;
 
 use Debugbar;
 
@@ -30,9 +30,17 @@ class GluonSqlHydrator
         return $entity;
     }
 
+    protected function propertySplit($propertyName){
+        $parts = ['type', 'key', 'valueKey'];
+        $splitted = explode('__', $propertyName);
+        $splitted = array_pad($splitted, count($parts), "default");
+
+        return array_combine($parts, $splitted);
+    }
 
 
     public function hydrateList($template, $lines){
+        $defaultLang = 'fr';
         Debugbar::startMeasure('gluon-hydrate-list', 'Gluon: hydrate list');
 
         $mainEntitiesById = [];
@@ -49,9 +57,26 @@ class GluonSqlHydrator
                     continue;
                 }
 
-                list($propertyType, $propertyKey) = explode('__', $propertyName);
-                $value = $propertyType == 'text' ? new GluonCollapsableValue($propertyValue) : $propertyValue;
-                $entity->set($propertyType, $propertyKey, $value);
+                $property = $this->propertySplit($propertyName);
+                $valueMap = $entity->getValue($property['key']);
+
+                if (! $valueMap){
+                    $valueMap = new GluonMap();
+                    $entity->set($property['type'], $property['key'], $valueMap);
+
+                    if ($property['type'] == "text") {
+                        $valueMap->setDefaultKey($defaultLang);
+                    }
+
+                    if ($property['type'] == "number") {
+                        $valueMap->setDefaultKey("default");
+                    }
+
+                    //...
+                } 
+
+                $valueMap->set($property['valueKey'], $propertyValue);
+
             }
 
             /*
@@ -69,7 +94,7 @@ class GluonSqlHydrator
                 $relatedAssociatedEntity->text__title = $line->related__associated__text__title;
             }*/
         }
-        
+
         Debugbar::stopMeasure('gluon-hydrate-list');
         return $entities;
     }

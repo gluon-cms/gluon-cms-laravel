@@ -20,7 +20,7 @@ class GluonSqlQueryBuilder
     public function build($template, $conditions = []) {
         Debugbar::startMeasure('gluon-build-query', 'Gluon: build query');
 
-        $lang = 'fr';
+        $langs = ['fr', 'en'];
 
         $query = DB::table('gluon_entity');
         $query->select([
@@ -39,20 +39,25 @@ class GluonSqlQueryBuilder
         foreach ($template as $key => $value) {
             list($propertyType, $propertyKey) = explode('.', $value);
 
-            $tableAlias = str_replace('.', '__', $value); //+counter ?
-            //$parameterAlias = "entity_$tableAlias";
+            //table alias : type__key(__valuekey)
 
             if ($propertyType == 'text') {
-                $query->addSelect("$tableAlias.value as $tableAlias");
+                foreach ($langs as $lang) {
+                    $tableAlias = "{$propertyType}__{$propertyKey}__{$lang}";
+                    $query->addSelect("$tableAlias.value as $tableAlias");
 
-                $query->leftJoin("gluon_param_text as $tableAlias", function ($join) use ($tableAlias, $propertyKey, $lang) {
-                    $join->on("$tableAlias.gluon_entity_id", '=', 'gluon_entity.id');
-                    $join->where("$tableAlias.lang_code", '=', $lang);
-                    $join->where("$tableAlias.key", '=', $propertyKey);
-                });
+                    $query->leftJoin("gluon_param_text as $tableAlias", function ($join) use ($tableAlias, $propertyKey, $lang) {
+                        $join->on("$tableAlias.gluon_entity_id", '=', 'gluon_entity.id');
+                        $join->where("$tableAlias.lang_code", '=', $lang);
+                        $join->where("$tableAlias.key", '=', $propertyKey);
+                    });
+
+                }
             }
 
             if ($propertyType == 'number') {
+                $tableAlias = "{$propertyType}__{$propertyKey}";
+
                 $query->addSelect("$tableAlias.value as $tableAlias");
 
                 $query->leftJoin("gluon_param_number as $tableAlias", function ($join) use ($tableAlias, $propertyKey, $lang) {
