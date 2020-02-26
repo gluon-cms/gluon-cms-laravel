@@ -28,12 +28,12 @@ class GluonAdminController extends \App\Http\Controllers\Controller
 
     public function get($id) {
         $entity = Gluon::getOne($id);
-        $entityDescription = GluonConfig::getDescription($entity->type);
+        $entityDefinition = GluonConfig::getDefinition($entity->type);
 
         return view('gluon.admin.get', [
             'type' => $entity->type,
             'entity' => $entity,
-            'description' => $entityDescription
+            'entityDefinition' => $entityDefinition
         ]);
     }
 }

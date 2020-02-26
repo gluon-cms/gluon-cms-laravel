@@ -9,6 +9,6 @@
 @endsection
 
 @section('main-content')
-    {{ dd($entity) }}
+    {{ $entity->type }} : {{ $entity->id }}
 
 @endsection

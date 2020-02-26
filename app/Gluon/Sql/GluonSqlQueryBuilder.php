@@ -2,12 +2,24 @@
 
 namespace App\Gluon\Sql;
 use Illuminate\Support\Facades\DB;
-
+use Debugbar;
 
 class GluonSqlQueryBuilder
 {
 
+    public function buildAndGet($template, $conditions = []) {
+        $query = $this->build($template, $conditions);
+
+        Debugbar::startMeasure('gluon-get-query', 'Gluon: execute query');
+        $result = $query->get();
+        Debugbar::stopMeasure('gluon-get-query');
+
+        return $result;
+    }
+
     public function build($template, $conditions = []) {
+        Debugbar::startMeasure('gluon-build-query', 'Gluon: build query');
+
         $lang = 'fr';
 
         $query = DB::table('gluon_entity');
@@ -101,7 +113,7 @@ class GluonSqlQueryBuilder
 
         //$query->orderBy('entity__text__title');
         //$query->orderBy('related__associated__rank'); //all ranks here !
-        
+        Debugbar::stopMeasure('gluon-build-query');
         return $query;
     }
 }

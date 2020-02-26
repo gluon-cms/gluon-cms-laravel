@@ -5,6 +5,8 @@ namespace App\Gluon\Sql;
 use App\Gluon\GluonEntityResult;
 use App\Gluon\GluonCollapsableValue;
 
+use Debugbar;
+
 class GluonSqlHydrator
 {
 
@@ -31,6 +33,7 @@ class GluonSqlHydrator
 
 
     public function hydrateList($template, $lines){
+        Debugbar::startMeasure('gluon-hydrate-list', 'Gluon: hydrate list');
 
         $mainEntitiesById = [];
         $relatedEntitiesById = [];
@@ -67,6 +70,7 @@ class GluonSqlHydrator
             }*/
         }
         
+        Debugbar::stopMeasure('gluon-hydrate-list');
         return $entities;
     }
 
