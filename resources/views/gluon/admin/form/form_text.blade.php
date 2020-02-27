@@ -1,11 +1,8 @@
-
-<div>
-    {{ $propertyName }} (Type: {{ $type }})
+<p>
+    <label>{{ $propertyName }}</label>
 
     @foreach ($value->getValues() as $key => $finalValue)
-        {{ $key }} : <textarea name="entity[{{ $entity->id }}][{{ $type }}__{{ $propertyName }}__{{ $key }}]">{{ $finalValue }}</textarea> -- 
+        {{ $key }} : <textarea name="entity[{{ $type }}.{{ $propertyName }}][{{ $key }}]">{{ $finalValue }}</textarea>
     @endforeach
 
-    Entity : {{ $entity->id }}
-
-</div>
+</p>

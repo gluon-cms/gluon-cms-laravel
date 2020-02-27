@@ -9,7 +9,8 @@ return [
     'parameter_type_number' => 'Number',
 
     'ui.actions' => 'Actions',
-    'ui.action_details' => 'Détails',
+    'ui.action_create' => 'Créer',
+    'ui.action_edit' => 'Modifier',
 
     //custom
     'article_plural' => 'Articles',

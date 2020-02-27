@@ -40,13 +40,13 @@
                     <td>{{ $entity->getValue($property) }}</td>
                 @endforeach
 
-                <td><a href="{{ url("admin/get", [$entity->id]) }}">{{ trans("gluon.ui.action_details") }}</a></td>
+                <td><a href="{{ url("admin/edit", [$entity->id]) }}">{{ trans("gluon.ui.action_edit") }}</a></td>
             </tr>  
         @endforeach
         </tbody>
 
     </table>
 
-    
+    <p><a href="{{ url("admin/create", [$entityType]) }}">{{ trans("gluon.ui.action_create") }}</a></p>
 
 @endsection

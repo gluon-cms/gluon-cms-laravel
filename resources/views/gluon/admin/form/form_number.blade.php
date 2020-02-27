@@ -1,4 +1,4 @@
-<div>
-    {{ $propertyName }} (Type: {{ $type }})
-    <input type="number" value="{{ $value }}" />
-</div>
+<p>
+    <label>{{ $propertyName }}:</label>
+    <input type="number" value="{{ $value }}" name="entity[{{ $type }}.{{ $propertyName }}]" />
+</p>

@@ -21,7 +21,9 @@ Route::get('api/get/{id}', 'Gluon\GluonApiController@get');
 Route::get('api/list/{type}', 'Gluon\GluonApiController@list');
 
 
-//middleware ADMIN
+//middleware ADMIN (GLUON)
 Route::get('admin', 'Gluon\GluonAdminController@home');
 Route::get('admin/list/{type}', 'Gluon\GluonAdminController@list');
-Route::get('admin/get/{id}', 'Gluon\GluonAdminController@get');
+Route::get('admin/edit/{id}', 'Gluon\GluonAdminController@edit');
+Route::get('admin/new/{type}', 'Gluon\GluonAdminController@create');
+Route::post('admin/handleForm', 'Gluon\GluonAdminController@handleForm');
