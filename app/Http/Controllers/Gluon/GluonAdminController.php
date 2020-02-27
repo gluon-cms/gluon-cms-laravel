@@ -84,59 +84,18 @@ class GluonAdminController extends \App\Http\Controllers\Controller
         $entityId = $entityData['id'];
         $entityType = $entityData['type'];
 
-        $queries = [];
-
-        foreach ($entityData as $parameter => $value) {
-            if ($parameter == 'id' || $parameter == 'type') {
-                continue;
-            }
-
-            list($parameterType, $parameterKey) = explode(".", $parameter);
-
-            if ($parameterType == 'text') {
-                //@todo TextParam
-                //loop langs.
-
-                $lang='fr';
-                DB::update('update gluon_param_text set value = :text where gluon_entity_id = :entityId and `key` = :key and lang_code = :lang', [
-                    'text' => $value[$lang],
-                    'entityId' => $entityId,
-                    'key' => $parameterKey,
-                    'lang' => $lang,
-                ]);
-
-                $lang='en';
-                DB::update('update gluon_param_text set value = :text where gluon_entity_id = :entityId and `key` = :key and lang_code = :lang', [
-                    'text' => $value[$lang],
-                    'entityId' => $entityId,
-                    'key' => $parameterKey,
-                    'lang' => $lang,
-                ]);
-            }
-
-            if ($parameterType == 'number') {
-
-                DB::update('update gluon_param_number set value = :value where gluon_entity_id = :entityId and `key` = :key', [
-                    'value' => $value,
-                    'entityId' => $entityId,
-                    'key' => $parameterKey
-                ]);
-
-            }
-
-            if ($parameterType == 'file') {
-                //insert and copy
-            }
-
-        }
+        $result = Gluon::save($entityId, $entityData);
 
         return redirect("admin/edit/$entityId");
-/*
-        DB::transaction(function () {
-    DB::table('users')->update(['votes' => 1]);
 
-    DB::table('posts')->delete();
-});*/
+        
+/*
+
+$id = DB::table('users')->insertGetId(
+    ['email' => 'john@example.com', 'votes' => 0]
+);
+
+*/
 
     }
 }

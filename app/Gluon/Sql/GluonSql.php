@@ -3,13 +3,18 @@
 namespace App\Gluon\Sql;
 
 use Debugbar;
+use DB;
 
 class GluonSql {
 
     protected $queryBuilder;
+    protected $parameterHelper = [];
 
     public function __construct(){
         $this->queryBuilder = new GluonSqlQueryBuilder();
+
+        $this->parameterHelper['text'] = new Parameter\GluonSqlParameter_Text();
+        $this->parameterHelper['number'] = new Parameter\GluonSqlParameter_Number();
     }
 
     public function getOne($condition) {
@@ -49,6 +54,22 @@ class GluonSql {
 
         Debugbar::stopMeasure('gluon-getlist');
         return $result;
+    }
+
+    public function save($entityId, $parameters){
+
+        return DB::transaction(function() use($entityId, $parameters) {
+            foreach ($parameters as $parameter => $value) {
+
+                if ($parameter == 'id' || $parameter == 'type') {
+                    continue;
+                }
+
+                list($parameterType, $parameterKey) = explode(".", $parameter);
+                $this->parameterHelper[$parameterType]->processSave($entityId, $parameterKey, $value);
+            }
+        });
+
     }
 
     public function count($template) {
