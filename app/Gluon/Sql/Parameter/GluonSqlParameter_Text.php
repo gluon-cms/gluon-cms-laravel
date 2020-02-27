@@ -2,9 +2,31 @@
 
 namespace App\Gluon\Sql\Parameter;
 
+use App\Gluon\GluonMap;
 use DB;
 
+use Schema;
+use Illuminate\Database\Schema\Blueprint;
+
 class GluonSqlParameter_Text  {
+
+    public function createTable(){
+        Schema::create('gluon_param_text', function (Blueprint $table) {
+            $table->unsignedBigInteger('gluon_entity_id');
+            $table->foreign('gluon_entity_id')->references('id')->on('gluon_entity');
+
+            $table->string('key')->index();
+            $table->text('value');
+
+            $table->string('lang_code');
+            $table->foreign('lang_code')->references('code')->on('lang');
+
+            $table->softDeletes();
+            $table->timestamps();
+        });
+
+    }
+
 
     public function processSave($entityId, $parameterKey, $value){
         foreach ($value as $lang => $translatedValue) {
@@ -16,6 +38,37 @@ class GluonSqlParameter_Text  {
                 'value' => $translatedValue
             ]);
         }
+    }
+
+
+
+    public function buildQueryPart($query, $propertyKey){
+        $langs = ['fr', 'en'];
+        $propertyType = 'text';
+
+        foreach ($langs as $lang) {
+            $tableAlias = "{$propertyType}__{$propertyKey}__{$lang}";
+            $query->addSelect("$tableAlias.value as $tableAlias");
+
+            $query->leftJoin("gluon_param_text as $tableAlias", function ($join) use ($tableAlias, $propertyKey, $lang) {
+                $join->on("$tableAlias.gluon_entity_id", '=', 'gluon_entity.id');
+                $join->where("$tableAlias.lang_code", '=', $lang);
+                $join->where("$tableAlias.key", '=', $propertyKey);
+            });
+
+        }
+    }
+
+
+
+    public function makeValueMap() {
+        $defaultLang = "fr";
+
+        $valueMap = new GluonMap();
+        $valueMap->setDefaultKey($defaultLang);
+
+        return $valueMap;
+
     }
 
 }

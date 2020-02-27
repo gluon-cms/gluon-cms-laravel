@@ -11,7 +11,7 @@ class GluonSql {
     protected $parameterHelper = [];
 
     public function __construct(){
-        $this->queryBuilder = new GluonSqlQueryBuilder();
+        $this->queryBuilder = new GluonSqlQueryBuilder($this);
 
         $this->parameterHelper['text'] = new Parameter\GluonSqlParameter_Text();
         $this->parameterHelper['number'] = new Parameter\GluonSqlParameter_Number();
@@ -29,7 +29,7 @@ class GluonSql {
 
         $lines = $this->queryBuilder->buildAndGet($template, $conditions);
         
-        $hydrator = new GluonSqlHydrator();
+        $hydrator = new GluonSqlHydrator($this);
         $result = $hydrator->hydrateOne($template, $lines);
 
         Debugbar::stopMeasure('gluon-getone');
@@ -49,11 +49,15 @@ class GluonSql {
 
         $lines = $this->queryBuilder->buildAndGet($template, $conditions);
 
-        $hydrator = new GluonSqlHydrator();
+        $hydrator = new GluonSqlHydrator($this);
         $result = $hydrator->hydrateList($template, $lines);
 
         Debugbar::stopMeasure('gluon-getlist');
         return $result;
+    }
+
+    public function getParameterHelper($type) {
+        return $this->parameterHelper[$type];
     }
 
     public function save($entityId, $parameters){
@@ -66,7 +70,7 @@ class GluonSql {
                 }
 
                 list($parameterType, $parameterKey) = explode(".", $parameter);
-                $this->parameterHelper[$parameterType]->processSave($entityId, $parameterKey, $value);
+                $this->getParameterHelper($parameterType)->processSave($entityId, $parameterKey, $value);
             }
         });
 

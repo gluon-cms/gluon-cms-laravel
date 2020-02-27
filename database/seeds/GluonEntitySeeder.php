@@ -99,7 +99,7 @@ class GluonEntitySeeder extends Seeder
 
         //RELATIONS
 
-
+        /*
         DB::table('gluon_param_related')->insert([
             'gluon_entity_id' => 1,
             'key' => 'associated',
@@ -118,6 +118,6 @@ class GluonEntitySeeder extends Seeder
             'key' => 'associated',
             'rank' => 1,
             'related_entity_id' => 3,
-        ]);
+        ]);*/
     }
 }

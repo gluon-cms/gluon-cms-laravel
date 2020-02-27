@@ -10,8 +10,11 @@ use Debugbar;
 class GluonSqlHydrator
 {
 
+    protected $gluon;
 
-
+    public function __construct(GluonSql $gluon) {
+        $this->gluon = $gluon;
+    }
 
     function getOrCreateEntity($id, $type, &$entitiesById, &$entities = []) {
 
@@ -61,38 +64,15 @@ class GluonSqlHydrator
                 $valueMap = $entity->getValue($property['key']);
 
                 if (! $valueMap){
-                    $valueMap = new GluonMap();
+                    $valueMap = $this->gluon->getParameterHelper($property['type'])->makeValueMap($property['key']);
                     $entity->set($property['type'], $property['key'], $valueMap);
-
-                    if ($property['type'] == "text") {
-                        $valueMap->setDefaultKey($defaultLang);
-                    }
-
-                    if ($property['type'] == "number") {
-                        $valueMap->setDefaultKey("default");
-                    }
-
-                    //...
                 } 
 
                 $valueMap->set($property['valueKey'], $propertyValue);
 
             }
 
-            /*
-            //loop on related__*
-            if (! isset($entity->related__associated)){
-                $entity->related__associated = [];
-            }
 
-            if ($line->related__associated__id) {
-                $relatedAssociatedEntity = getOrCreateEntity($line->related__associated__id, 'type!!', $relatedEntitiesById);
-
-                $entity->related__associated[] = $relatedAssociatedEntity;
-
-                //loop on related__associated__* properties
-                $relatedAssociatedEntity->text__title = $line->related__associated__text__title;
-            }*/
         }
 
         Debugbar::stopMeasure('gluon-hydrate-list');
