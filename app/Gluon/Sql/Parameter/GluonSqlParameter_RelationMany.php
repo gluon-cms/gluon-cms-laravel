@@ -28,12 +28,21 @@ class GluonSqlParameter_RelationMany  {
 
 
     public function processSave($entityId, $parameterKey, $value){
-        /*DB::table('gluon_param_number')->updateOrInsert([
-            'gluon_entity_id' => $entityId, 
-            'key' => $parameterKey
-        ], [
-            'value' => $value
-        ]);*/
+
+        DB::table('gluon_param_relation_many')->where([
+            ['gluon_entity_id', $entityId],
+            ['key', $parameterKey]
+        ])->delete();
+
+        foreach ($value as $related) {
+            DB::table('gluon_param_relation_many')->insert([
+                'gluon_entity_id' => $entityId, 
+                'key' => $parameterKey,
+                'related_entity_id' => $related["id"],
+                'rank' => $related["rank"]
+            ]);
+        }
+
     }
 
     public function buildQueryPart($query, $propertyKey){
@@ -42,7 +51,6 @@ class GluonSqlParameter_RelationMany  {
         $tableAlias = "{$propertyType}__{$propertyKey}";
         $columnIdAlias = "{$propertyType}__{$propertyKey}__entity_id";
         $columnRankAlias = "{$propertyType}__{$propertyKey}__rank";
-        
 
         if (in_array("$tableAlias.related_entity_id as $columnIdAlias", $query->columns)) {
             return;

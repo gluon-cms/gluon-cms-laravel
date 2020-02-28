@@ -27,12 +27,12 @@ class GluonSqlParameter_RelationOne  {
 
 
     public function processSave($entityId, $parameterKey, $value){
-        /*DB::table('gluon_param_number')->updateOrInsert([
+        DB::table('gluon_param_relation_one')->updateOrInsert([
             'gluon_entity_id' => $entityId, 
             'key' => $parameterKey
         ], [
-            'value' => $value
-        ]);*/
+            'related_entity_id' => $value
+        ]);
     }
 
     public function buildQueryPart($query, $propertyKey){
