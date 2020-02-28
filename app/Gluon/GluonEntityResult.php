@@ -56,4 +56,8 @@ class GluonEntityResult implements \JsonSerializable
         return null;
     }
 
+    public function __toString() {
+        return "#{$this->id} - " . current($this->values); //first value, to string.
+    }
+
 }

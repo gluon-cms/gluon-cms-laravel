@@ -39,18 +39,30 @@ class GluonSqlParameter_RelationOne  {
 
         $propertyType = "relationOne";
         $tableAlias = "{$propertyType}__{$propertyKey}";
-        $columnAlias = "{$propertyType}__{$propertyKey}__entity_id";
-
-        if (in_array("$tableAlias.related_entity_id as $columnAlias", $query->columns)) {
-            return;
-        }
+        $columnIdAlias = "{$propertyType}__{$propertyKey}__entity_id";
         
 
-        $query->addSelect("$tableAlias.related_entity_id as $columnAlias");
+        if (in_array("$tableAlias.related_entity_id as $columnIdAlias", $query->columns)) {
+            return;
+        }
+
+        $query->addSelect("$tableAlias.related_entity_id as $columnIdAlias");
 
         $query->leftJoin("gluon_param_relation_one as $tableAlias", function ($join) use ($tableAlias, $propertyKey) {
             $join->on("$tableAlias.gluon_entity_id", '=', 'gluon_entity.id');
             $join->where("$tableAlias.key", '=', $propertyKey);
+        });
+
+        //
+
+        $baseTableAlias = "{$propertyType}__{$propertyKey}__baseEntity";
+        $columnTypeAlias = "{$propertyType}__{$propertyKey}__entity_type";
+        $referenceId = "$tableAlias.related_entity_id";
+
+        $query->addSelect("$baseTableAlias.type as $columnTypeAlias");
+
+        $query->leftJoin("gluon_entity as $baseTableAlias", function ($join) use ($baseTableAlias, $referenceId) {
+            $join->on("$baseTableAlias.id", '=', $referenceId);
         });
     }
 

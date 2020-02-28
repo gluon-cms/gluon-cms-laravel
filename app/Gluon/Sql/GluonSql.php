@@ -24,7 +24,7 @@ class GluonSql {
 
         //$template = ['text.title', 'text.content', 'number.score'] ;
         //$template = ['text.title', 'text.content', 'relationMany.associated.text.title'];
-        $template = ['text.title', 'text.content', 'relationOne.test.text.title'];
+        $template = ['text.title', 'text.content', 'number.score', 'relationOne.test.text.title', 'relationOne.test.number.score', 'relationOne.test.text.content', 'relationOne.super.text.title'];
 
         $conditions = [
             ['gluon_entity.id', '=', $condition]
@@ -45,7 +45,10 @@ class GluonSql {
 
         $template = ['text.title', 'text.content', 'number.score'] ;
         //$template = ['text.title', 'text.content', 'related.associated.text.title'];
-        $template = ['text.title', 'text.content', 'relationOne.test.text.title', 'relationOne.test.text.content'];
+        $template = ['text.title', 'text.content', 'number.score', 'relationOne.test.text.title', 'relationOne.test.number.score', 'relationOne.test.text.content', 'relationOne.super.text.title'];
+
+        //$template = ['text.title', 'text.content', 'number.score', 'relationOne.test.text.title'];
+
 
         $conditions = [
             ['gluon_entity.type', '=', $type]

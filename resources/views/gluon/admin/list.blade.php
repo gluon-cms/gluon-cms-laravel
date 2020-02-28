@@ -20,7 +20,7 @@
 
             @foreach ($firstEntity->getTypes() as $parameter => $parameterType)
                 <th>
-                    <span class="parameter">{{ trans("gluon.parameter_$parameter") }}</span>
+                    <span class="parameter">{{ trans("gluon.parameter_$parameter") }}</span><br>
                     <span class="parameterType">{{ trans("gluon.parameter_type_$parameterType") }}</span>
                 </th>
             @endforeach

@@ -33,14 +33,21 @@ class GluonSqlHydrator
         return $entity;
     }
 
-    protected function propertySplit($propertyName){
+    /*protected function propertySplit($propertyName){
         $parts = ['type', 'key', 'valueKey'];
         $splitted = explode('__', $propertyName);
         $splitted = array_pad($splitted, count($parts), "default");
 
         return array_combine($parts, $splitted);
-    }
+    }*/
 
+    protected function propertySplit($propertyName){
+        $parts = ['type', 'key', 'more'];
+        $splitted = explode('__', $propertyName, 3);
+        $splitted = array_pad($splitted, count($parts), "default");
+
+        return array_combine($parts, $splitted);
+    }
 
     public function hydrateList($template, $lines){
         $defaultLang = 'fr';
@@ -61,14 +68,54 @@ class GluonSqlHydrator
                 }
 
                 $property = $this->propertySplit($propertyName);
-                $valueMap = $entity->getValue($property['key']);
+                $workEntity = $entity;
 
-                if (! $valueMap){
-                    $valueMap = $this->gluon->getParameterHelper($property['type'])->makeValueMap($property['key']);
-                    $entity->set($property['type'], $property['key'], $valueMap);
-                } 
+                if($property['type'] == "relationOne") {
+                    
+                    $relatedEntityTypeKey = "{$property['type']}__{$property['key']}__entity_type";
+                    $reletedEntityType = $line->$relatedEntityTypeKey;
 
-                $valueMap->set($property['valueKey'], $propertyValue);
+                    $relatedEntityIdKey = "{$property['type']}__{$property['key']}__entity_id";
+                    $reletedEntityId = $line->$relatedEntityIdKey;
+
+                    if ($property['more'] == "entity_id"){
+
+                        $relatedEntity = $this->getOrCreateEntity($propertyValue, $reletedEntityType, $relatedEntitiesById); 
+                        $entity->set($property['type'], $property['key'], $relatedEntity);
+                        continue;
+                    }
+
+                    if ($property['more'] == "entity_type"){
+                        continue;
+                    }
+
+                    $relatedEntity = $this->getOrCreateEntity($reletedEntityId, $reletedEntityType, $relatedEntitiesById);
+                    $subProperty = $this->propertySplit($property['more']);
+
+                    $valueMap = $relatedEntity->getValue($subProperty['key']);
+
+                    if (! $valueMap){
+                        $valueMap = $this->gluon->getParameterHelper($subProperty['type'])->makeValueMap($subProperty['key']);
+                        $relatedEntity->set($subProperty['type'], $subProperty['key'], $valueMap);
+                    } 
+                    
+                    //@todo done by parameter helper...
+                    $valueMap->set($subProperty['more'], $propertyValue);
+
+                } else {
+                    $valueMap = $entity->getValue($property['key']);
+
+                    if (! $valueMap){
+                        $valueMap = $this->gluon->getParameterHelper($property['type'])->makeValueMap($property['key']);
+                        $entity->set($property['type'], $property['key'], $valueMap);
+                    } 
+
+                    //@todo done by parameter helper...
+                    $valueMap->set($property['more'], $propertyValue);
+                }
+
+                
+                
 
             }
 

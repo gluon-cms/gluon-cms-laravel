@@ -42,12 +42,12 @@ class GluonSqlParameter_Text  {
 
 
 
-    public function buildQueryPart($query, $propertyKey, $referenceEntityColumn = 'gluon_entity.id', $prefix = ''){
+    public function buildQueryPart($query, $propertyKey, $referenceEntityColumn = 'gluon_entity.id', $aliasPrefix = ''){
         $langs = ['fr', 'en'];
         $propertyType = 'text';
 
         foreach ($langs as $lang) {
-            $tableAlias = "{$prefix}{$propertyType}__{$propertyKey}__{$lang}"; //counter ?
+            $tableAlias = "{$aliasPrefix}{$propertyType}__{$propertyKey}__{$lang}";
             $query->addSelect("$tableAlias.value as $tableAlias");
 
             $query->leftJoin("gluon_param_text as $tableAlias", function ($join) use ($tableAlias, $propertyKey, $lang, $referenceEntityColumn) {

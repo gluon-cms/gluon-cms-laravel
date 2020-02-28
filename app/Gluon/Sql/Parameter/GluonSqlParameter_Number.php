@@ -33,14 +33,14 @@ class GluonSqlParameter_Number  {
         ]);
     }
 
-    public function buildQueryPart($query, $propertyKey){
+    public function buildQueryPart($query, $propertyKey, $referenceEntityColumn = 'gluon_entity.id', $aliasPrefix = ''){
         $propertyType = "number";
-        $tableAlias = "{$propertyType}__{$propertyKey}";
+        $tableAlias = "{$aliasPrefix}{$propertyType}__{$propertyKey}";
 
         $query->addSelect("$tableAlias.value as $tableAlias");
 
-        $query->leftJoin("gluon_param_number as $tableAlias", function ($join) use ($tableAlias, $propertyKey) {
-            $join->on("$tableAlias.gluon_entity_id", '=', 'gluon_entity.id');
+        $query->leftJoin("gluon_param_number as $tableAlias", function ($join) use ($tableAlias, $propertyKey, $referenceEntityColumn) {
+            $join->on("$tableAlias.gluon_entity_id", '=', $referenceEntityColumn);
             $join->where("$tableAlias.key", '=', $propertyKey);
         });
     }
