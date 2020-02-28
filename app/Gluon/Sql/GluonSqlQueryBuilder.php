@@ -33,6 +33,8 @@ class GluonSqlQueryBuilder
             //dates?
         ]);
 
+        $query->orderby('entity_id');
+
         if($conditions){
             foreach ($conditions as $condition) {
                 //check condition size... + replace .--> __?

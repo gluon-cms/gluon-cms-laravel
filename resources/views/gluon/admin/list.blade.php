@@ -37,7 +37,11 @@
                 <td>{{ $entity->type }}</td>
 
                 @foreach ($entity->getTypes() as $property => $type)
+                    @if(is_array($entity->getValue($property)))
+                    <td>{{ count($entity->getValue($property)) }} entities</td>
+                    @else
                     <td>{{ $entity->getValue($property) }}</td>
+                    @endif
                 @endforeach
 
                 <td><a href="{{ url("admin/edit", [$entity->id]) }}">{{ trans("gluon.ui.action_edit") }}</a></td>

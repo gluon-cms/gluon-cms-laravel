@@ -24,6 +24,7 @@ class CreateGluonEntityCoreTable extends Migration
         Gluon::getParameterHelper('number')->createTable();
         Gluon::getParameterHelper('text')->createTable();
         Gluon::getParameterHelper('relationOne')->createTable();
+        Gluon::getParameterHelper('relationMany')->createTable();
         
     }
 
@@ -37,6 +38,8 @@ class CreateGluonEntityCoreTable extends Migration
         Schema::dropIfExists('gluon_entity');
         Schema::dropIfExists('gluon_param_number');
         Schema::dropIfExists('gluon_param_text');
+        Schema::dropIfExists('gluon_param_relation_one');
+        Schema::dropIfExists('gluon_param_relation_many');
         
     }
 }

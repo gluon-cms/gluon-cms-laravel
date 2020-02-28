@@ -70,7 +70,7 @@ class GluonSqlHydrator
                 $property = $this->propertySplit($propertyName);
                 $workEntity = $entity;
 
-                if($property['type'] == "relationOne") {
+                if($property['type'] == "relationOne" || $property['type'] == "relationMany") {
                     
                     $relatedEntityTypeKey = "{$property['type']}__{$property['key']}__entity_type";
                     $reletedEntityType = $line->$relatedEntityTypeKey;
@@ -81,12 +81,28 @@ class GluonSqlHydrator
                     if ($property['more'] == "entity_id"){
 
                         $relatedEntity = $this->getOrCreateEntity($propertyValue, $reletedEntityType, $relatedEntitiesById); 
-                        $entity->set($property['type'], $property['key'], $relatedEntity);
+
+                        if ($property['type'] == "relationMany"){
+                            $existingMany = $entity->getValue($property['key']);
+                            if (!$existingMany) {
+                                $existingMany = [];
+                            }
+
+                            $existingMany[] = $relatedEntity;
+                            $entity->set($property['type'], $property['key'], $existingMany);
+                        } else {
+                            $entity->set($property['type'], $property['key'], $relatedEntity);
+                        }
+
                         continue;
                     }
 
                     if ($property['more'] == "entity_type"){
                         continue;
+                    }
+
+                    if ($property['more'] == "rank"){
+                        continue; //!!!!!
                     }
 
                     $relatedEntity = $this->getOrCreateEntity($reletedEntityId, $reletedEntityType, $relatedEntitiesById);
