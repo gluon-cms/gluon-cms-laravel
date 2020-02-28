@@ -1,0 +1,32 @@
+@import url(https://fonts.googleapis.com/css?family=Nunito);.gluonAdmin .container {
+  overflow: auto;
+}
+
+.gluonAdmin main {
+  float: right;
+  width: calc(100% - 15rem);
+}
+
+.gluonAdmin aside {
+  float: right;
+  width: 15rem;
+  background: #cccccc;
+}
+
+.gluonAdmin .mainContent {
+  padding: 1em;
+}
+
+/*
+table,
+thead,
+  tbody,
+  th,
+  tr,
+  td {
+    text-align: left;
+    display: block;
+    width: auto;
+    background: yellow;
+  }*/
+

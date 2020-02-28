@@ -1,8 +1,1 @@
-<p>
-    <label>{{ $propertyName }}</label>
-
-    @foreach ($value->getValues() as $key => $finalValue)
-        {{ $key }} : <textarea name="entity[{{ $type }}.{{ $propertyName }}][{{ $key }}]">{{ $finalValue }}</textarea>
-    @endforeach
-
-</p>
+<gluon-parameter-text property-name="{{ $propertyName }}" :initial-value='@json($value)' input-name-prefix="entity"></gluon-parameter-text>

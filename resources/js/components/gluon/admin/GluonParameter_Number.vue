@@ -1,23 +1,43 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Example Component</div>
+    <div>
+        <strong>{{ propertyName }}</strong>
+        <input type="text" :name="inputName" v-model="value" />
 
-                    <div class="card-body">
-                        I'm an example component.
-                    </div>
-                </div>
-            </div>
-        </div>
+        <span v-if="initialValue != value">updated!</span>
     </div>
 </template>
 
 <script>
     export default {
+        name: "gluon-parameter-number",
+
+        props: [
+            'propertyName','initialValue','inputNamePrefix'
+        ],
+
+        data() {
+            return {
+                'value': null
+            }
+        },
+
+        watch:{
+            initialValue: {
+                immediate: true,
+                handler(){
+                    this.value = this.initialValue
+                }
+            }
+        },
+
+        computed: {
+            inputName(){
+                return `${this.inputNamePrefix}[number.${this.propertyName}]`
+            }
+        },
+
         mounted() {
-            console.log('Component mounted.')
+            
         }
     }
 </script>

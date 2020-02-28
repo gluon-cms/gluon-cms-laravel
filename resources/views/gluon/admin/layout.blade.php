@@ -6,7 +6,7 @@
 
         <title>Gluon - Admin</title>
 
-        <link rel="stylesheet" href="{{mix('css/app.css')}}">
+        <link rel="stylesheet" href="{{ mix('css/app-back.css') }}">
 
     </head>
     <body class="gluonAdmin">
@@ -36,6 +36,6 @@
             </footer>
         </section>
 
-        <script src="{{ mix('/js/app.js') }}"></script>
+        <script src="{{ mix('/js/app-back.js') }}"></script>
     </body>
 </html>
