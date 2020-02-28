@@ -42,16 +42,16 @@ class GluonSqlParameter_Text  {
 
 
 
-    public function buildQueryPart($query, $propertyKey){
+    public function buildQueryPart($query, $propertyKey, $referenceEntityColumn = 'gluon_entity.id', $prefix = ''){
         $langs = ['fr', 'en'];
         $propertyType = 'text';
 
         foreach ($langs as $lang) {
-            $tableAlias = "{$propertyType}__{$propertyKey}__{$lang}";
+            $tableAlias = "{$prefix}{$propertyType}__{$propertyKey}__{$lang}"; //counter ?
             $query->addSelect("$tableAlias.value as $tableAlias");
 
-            $query->leftJoin("gluon_param_text as $tableAlias", function ($join) use ($tableAlias, $propertyKey, $lang) {
-                $join->on("$tableAlias.gluon_entity_id", '=', 'gluon_entity.id');
+            $query->leftJoin("gluon_param_text as $tableAlias", function ($join) use ($tableAlias, $propertyKey, $lang, $referenceEntityColumn) {
+                $join->on("$tableAlias.gluon_entity_id", '=', $referenceEntityColumn);
                 $join->where("$tableAlias.lang_code", '=', $lang);
                 $join->where("$tableAlias.key", '=', $propertyKey);
             });

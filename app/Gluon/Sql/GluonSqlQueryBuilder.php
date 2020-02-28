@@ -43,9 +43,19 @@ class GluonSqlQueryBuilder
         foreach ($template as $key => $value) {
             list($propertyType, $propertyKey) = explode('.', $value);
             $this->gluon->getParameterHelper($propertyType)->buildQueryPart($query, $propertyKey);
+
+            if ($propertyType == "relationOne" || $propertyType == "relationMany") {
+                list($relationType, $relationKey, $childPropertyType, $childPropertyKey) = explode('.', $value);
+                $referenceEntity = "{$propertyType}__{$propertyKey}.related_entity_id";
+                $prefixForAliases = "{$propertyType}__{$propertyKey}__";
+                $this->gluon->getParameterHelper($childPropertyType)->buildQueryPart($query, $childPropertyKey, $referenceEntity, $prefixForAliases);
+            }
         }
 
         Debugbar::stopMeasure('gluon-build-query');
+
+        dd($query->get());
+
         return $query;
     }
 }
