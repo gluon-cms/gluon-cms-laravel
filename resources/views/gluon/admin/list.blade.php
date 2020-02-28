@@ -16,8 +16,7 @@
         <thead>
         <tr>
             <th>{{ trans("gluon.entity_id") }}</th>
-            <th>{{ trans("gluon.entity_type") }}</th>
-
+            
             @foreach ($firstEntity->getTypes() as $parameter => $parameterType)
                 <th>
                     <span class="parameter">{{ trans("gluon.parameter_$parameter") }}</span><br>
@@ -34,7 +33,6 @@
 
             <tr>
                 <td>{{ $entity->id }}</td>
-                <td>{{ $entity->type }}</td>
 
                 @foreach ($entity->getTypes() as $property => $type)
                     @if(is_array($entity->getValue($property)))
@@ -44,7 +42,7 @@
                     @endif
                 @endforeach
 
-                <td><a href="{{ url("admin/edit", [$entity->id]) }}">{{ trans("gluon.ui.action_edit") }}</a></td>
+                <td><a href="{{ url("admin/edit", [$entity->type, $entity->id]) }}">{{ trans("gluon.ui.action_edit") }}</a></td>
             </tr>  
         @endforeach
         </tbody>

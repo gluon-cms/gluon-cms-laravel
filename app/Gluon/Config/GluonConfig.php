@@ -16,6 +16,14 @@ class GluonConfig
         return $this->completeDefinition($definition);
     }
 
+    public function getTemplate($type, $variant){
+
+        $result = Config::get("gluonEntities.templates.{$type}--{$variant}");
+        $result = $result ? $result : Config::get("gluonEntities.templates.{$type}");
+
+        return $result;
+    }
+
     public function completeDefinition($definition){
         array_unshift($definition, 'type');
         array_unshift($definition, 'id');

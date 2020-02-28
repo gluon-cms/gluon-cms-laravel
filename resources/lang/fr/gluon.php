@@ -14,6 +14,12 @@ return [
 
     //custom
     'article_plural' => 'Articles',
+    'artist_plural' => 'Artistes',
+    'category_plural' => 'Catégories',
+
+    'article_singular' => 'Article',
+    'artist_singular' => 'Artiste',
+    'category_singular' => 'Catégorie',
 
     'parameter_title' => 'Titre',
     'parameter_content' => 'Contenu',

@@ -18,44 +18,57 @@ return [
             'text.title',
             'text.content',
 
-            //'toMany.associated',
-            //'toOne.author'
+            'relationOne.author',
+            'relationOne.category'
         ],
 
         'artist' => [
             'text.fullname',
-            'text.bio'
-        ],
+            'text.bio',
 
-        'place' => [
-            'text.label',
-            'text.description',
-
-            //'geo.location'
-        ],
-
-        'event' => [
-            'text.title',
-
-            //'toMany.representations'
-        ],
-
-        'representation' => [
-            //'date.startDate'
-            //'date.endDate'
-
-            //'toOne.event'
-        ],
-
-        'genre' => [
-            'text.label',
+            'relationMany.articles'
         ],
 
         'category' => [
             'text.label',
+
+            'relationMany.articles'
         ]
     ],
 
+
+    'templates' => [
+        'article' => [
+            'text.title',
+            'text.content',
+
+            'relationOne.author.text.fullname',
+            'relationOne.category.text.label'
+        ],
+
+        'article--detail' => [
+            'text.title',
+            'text.content',
+
+            'relationOne.author.text.fullname',
+            'relationOne.author.text.bio',
+
+            'relationOne.category.text.label'
+        ],
+
+        'artist' => [
+            'text.fullname',
+            'text.bio',
+
+            'relationMany.articles.text.title'
+        ],
+
+        'category' => [
+            'text.label',
+
+            'relationMany.articles.text.title'
+        ]
+    ]
 
 /*
     'admin' => [
@@ -66,15 +79,5 @@ return [
         'event.toMany.representations' => ['representation'], //reverse  => representation.toOne.event
     ],
 */
-/*
 
-    'templates' => [
-        'article--light' => [
-            'text.title',
-            'text.content',
-
-            'related.associated.title',
-            'related.author.fullname'
-        ]
-    ],*/
 ];

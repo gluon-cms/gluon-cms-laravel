@@ -27,8 +27,8 @@ class GluonAdminController extends \App\Http\Controllers\Controller
         ]);
     }
 
-    public function edit($id) {
-        $entity = Gluon::getOne($id);
+    public function edit($entityType, $id) {
+        $entity = Gluon::getOne($entityType, $id);
         $entityDefinition = GluonConfig::getDefinition($entity->type);
 
         return view('gluon.admin.form', [

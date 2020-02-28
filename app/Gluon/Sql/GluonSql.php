@@ -4,6 +4,7 @@ namespace App\Gluon\Sql;
 
 use Debugbar;
 use DB;
+use GluonConfig;
 
 class GluonSql {
 
@@ -20,21 +21,16 @@ class GluonSql {
 
     }
 
-    public function getOne($condition) {
+    public function getOne($type, $id, $variant = null) {
         Debugbar::startMeasure('gluon-getone', 'Gluon: get One');
 
-        //$template = ['text.title', 'text.content', 'number.score'] ;
-        //$template = ['text.title', 'text.content', 'relationMany.associated.text.title'];
-        $template = ['text.title', 'text.content', 'number.score', 'relationOne.test.text.title', 'relationOne.test.number.score', 'relationOne.test.text.content', 'relationOne.super.text.title'];
-
-        $template = ['text.title', 'text.content', 'number.score', 'relationMany.test.text.title', 'relationMany.test.number.score', 'relationOne.demo.text.title'];
-
         $conditions = [
-            ['gluon_entity.id', '=', $condition]
+            ['gluon_entity.id', '=', $id]
         ];
 
+        $template = GluonConfig::getTemplate($type, $variant);
         $lines = $this->queryBuilder->buildAndGet($template, $conditions);
-        
+
         $hydrator = new GluonSqlHydrator($this);
         $result = $hydrator->hydrateOne($template, $lines);
 
@@ -43,17 +39,10 @@ class GluonSql {
         
     }
 
-    public function getList($type) {
+    public function getList($type, $variant = null) {
         Debugbar::startMeasure('gluon-getlist', 'Gluon: get list');
 
-        $template = ['text.title', 'text.content', 'number.score'] ;
-        //$template = ['text.title', 'text.content', 'related.associated.text.title'];
-        $template = ['text.title', 'text.content', 'number.score', 'relationOne.test.text.title', 'relationOne.test.number.score', 'relationOne.test.text.content', 'relationOne.super.text.title'];
-
-        $template = ['text.title', 'text.content', 'number.score', 'relationMany.test.text.title', 'relationMany.test.number.score', 'relationOne.demo.text.title'];
-
-        //$template = ['text.title', 'text.content', 'number.score', 'relationOne.test.text.title'];
-
+        $template = GluonConfig::getTemplate($type, $variant);
 
         $conditions = [
             ['gluon_entity.type', '=', $type]

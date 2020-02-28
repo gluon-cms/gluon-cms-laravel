@@ -43,6 +43,7 @@ class GluonSqlQueryBuilder
         }
 
         foreach ($template as $key => $value) {
+
             list($propertyType, $propertyKey) = explode('.', $value);
             $this->gluon->getParameterHelper($propertyType)->buildQueryPart($query, $propertyKey);
 
