@@ -32,7 +32,8 @@
 
         computed: {
             inputName(){
-                return `${this.inputNamePrefix}[number.${this.propertyName}]`
+                let prefix = this.inputNamePrefix ? this.inputNamePrefix : 'entity'
+                return `${prefix}[number.${this.propertyName}]`
             }
         },
 

@@ -1935,7 +1935,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     inputName: function inputName() {
-      return "".concat(this.inputNamePrefix, "[number.").concat(this.propertyName, "]");
+      var prefix = this.inputNamePrefix ? this.inputNamePrefix : 'entity';
+      return "".concat(prefix, "[number.").concat(this.propertyName, "]");
     }
   },
   mounted: function mounted() {}

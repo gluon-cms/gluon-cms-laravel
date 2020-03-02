@@ -18,6 +18,8 @@ return [
             'text.title',
             'text.content',
 
+            'number.score',
+
             'relationOne.author',
             'relationOne.category'
         ],
@@ -67,6 +69,7 @@ return [
         'article' => [
             'text.title',
             'text.content',
+            'number.score',
 
             'relationOne.author.text.fullname',
             'relationOne.category.text.label'

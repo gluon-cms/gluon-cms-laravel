@@ -62,12 +62,24 @@ class GluonSqlParameter_Text  extends GluonSqlParameter_Abstract {
 
 
     public function makeValueMap() {
-        $defaultLang = "fr";
+        $defaultLang = "fr"; //@todo app.lang !
 
         $valueMap = new GluonMap();
         $valueMap->setDefaultKey($defaultLang);
 
         return $valueMap;
+
+    }
+
+    public  function hydrateValue($entity, $key, $value, $additionalKey){
+        $valueMap = $entity->getValue($key);
+
+        if (! $valueMap){
+            $valueMap = $this->makeValueMap();
+            $entity->set('text', $key, $valueMap);
+        }
+
+        $valueMap->set($additionalKey, $value);
 
     }
 

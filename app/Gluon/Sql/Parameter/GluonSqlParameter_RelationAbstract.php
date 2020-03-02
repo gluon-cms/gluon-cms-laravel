@@ -9,5 +9,7 @@ use Illuminate\Database\Schema\Blueprint;
 
 
 abstract class GluonSqlParameter_RelationAbstract  extends GluonSqlParameter_Abstract {
-
+    public  function hydrateValue($entity, $key, $value, $additionalKey){
+        
+    }
 }

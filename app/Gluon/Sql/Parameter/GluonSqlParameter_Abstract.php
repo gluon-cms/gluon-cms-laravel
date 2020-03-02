@@ -21,7 +21,7 @@ abstract class GluonSqlParameter_Abstract  {
     abstract public function createTable();
     abstract public function processSave($entityId, $parameterKey, $value, $constraints=null);
     abstract public  function buildQueryPart($query, $propertyKey, $referenceEntityColumn = 'gluon_entity.id', $aliasPrefix = '');
-    abstract public  function makeValueMap();
-    //abstract public  function makeValue();
+
+    abstract public  function hydrateValue($entity, $key, $value, $additionalKey);
 
 }

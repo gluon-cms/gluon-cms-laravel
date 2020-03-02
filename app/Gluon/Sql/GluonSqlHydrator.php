@@ -33,14 +33,6 @@ class GluonSqlHydrator
         return $entity;
     }
 
-    /*protected function propertySplit($propertyName){
-        $parts = ['type', 'key', 'valueKey'];
-        $splitted = explode('__', $propertyName);
-        $splitted = array_pad($splitted, count($parts), "default");
-
-        return array_combine($parts, $splitted);
-    }*/
-
     protected function propertySplit($propertyName){
         $parts = ['type', 'key', 'more'];
         $splitted = explode('__', $propertyName, 3);
@@ -119,15 +111,14 @@ class GluonSqlHydrator
                     $valueMap->set($subProperty['more'], $propertyValue);
 
                 } else {
-                    $valueMap = $entity->getValue($property['key']);
 
-                    if (! $valueMap){
-                        $valueMap = $this->gluon->getParameterHelper($property['type'])->makeValueMap($property['key']);
-                        $entity->set($property['type'], $property['key'], $valueMap);
-                    } 
+                    $this->gluon->getParameterHelper($property['type'])->hydrateValue(
+                        $entity, 
+                        $property['key'], 
+                        $propertyValue,
+                        $property['more']
+                    );
 
-                    //@todo done by parameter helper...
-                    $valueMap->set($property['more'], $propertyValue);
                 }
 
                 
