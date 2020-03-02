@@ -42,7 +42,7 @@ class GluonSqlParameter_Text  extends GluonSqlParameter_Abstract {
 
 
 
-    public function buildQueryPart($query, $propertyKey, $referenceEntityColumn = 'gluon_entity.id', $aliasPrefix = ''){
+    public function buildQueryPart($query, $propertyKey, $additionalKey, $referenceEntityColumn = 'gluon_entity.id', $aliasPrefix = ''){
         $langs = ['fr', 'en'];
         $propertyType = 'text';
 

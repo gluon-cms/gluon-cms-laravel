@@ -50,18 +50,6 @@ return [
             'reverse' => 'relationOne.mainArticle'
         ]
 
-        /*
-        'article' => [
-            'text.content' => [
-                'style' => 'rich'
-            ],
-
-            'relationOne.author' => [
-                'type' => 'category', 
-                'reverse' => 'relationMany.articles'
-            ]
-        ]*/
-        
     ],
 
 
@@ -72,7 +60,9 @@ return [
             'number.score',
 
             'relationOne.author.text.fullname',
-            'relationOne.category.text.label'
+            'relationOne.category.text.label',
+
+            //'relationOne.author.relationOne.mainArticle.text.title',
         ],
 
         'article--detail' => [

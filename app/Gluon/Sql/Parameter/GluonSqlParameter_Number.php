@@ -34,7 +34,7 @@ class GluonSqlParameter_Number extends GluonSqlParameter_Abstract {
         ]);
     }
 
-    public function buildQueryPart($query, $propertyKey, $referenceEntityColumn = 'gluon_entity.id', $aliasPrefix = ''){
+    public function buildQueryPart($query, $propertyKey, $additionalKey, $referenceEntityColumn = 'gluon_entity.id', $aliasPrefix = ''){
         $propertyType = "number";
         $tableAlias = "{$aliasPrefix}{$propertyType}__{$propertyKey}";
 

@@ -48,7 +48,7 @@ class GluonSqlParameter_RelationOne  extends GluonSqlParameter_RelationAbstract 
 
     }
 
-    public function buildQueryPart($query, $propertyKey, $referenceEntityColumn = 'gluon_entity.id', $aliasPrefix = ''){
+    public function buildQueryPart($query, $propertyKey, $additionalKey, $referenceEntityColumn = 'gluon_entity.id', $aliasPrefix = ''){
 
         $propertyType = "relationOne";
         $tableAlias = "{$propertyType}__{$propertyKey}";
@@ -77,6 +77,8 @@ class GluonSqlParameter_RelationOne  extends GluonSqlParameter_RelationAbstract 
         $query->leftJoin("gluon_entity as $baseTableAlias", function ($join) use ($baseTableAlias, $referenceId) {
             $join->on("$baseTableAlias.id", '=', $referenceId);
         });
+
+        $this->buildRelatedEntityQueryPart($query, $propertyKey, $additionalKey);
     }
 
     public function makeValueMap() {

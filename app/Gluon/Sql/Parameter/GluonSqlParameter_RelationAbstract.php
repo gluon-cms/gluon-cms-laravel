@@ -15,13 +15,34 @@ abstract class GluonSqlParameter_RelationAbstract  extends GluonSqlParameter_Abs
 
     protected $relatedEntities = [];
 
-    public function propertySplit($propertyName){
+    public function propertySplit($propertyName, $separator="__"){
         $parts = ['type', 'key', 'more'];
-        $splitted = explode('__', $propertyName, 3);
+        $splitted = explode($separator, $propertyName, 3);
         $splitted = array_pad($splitted, count($parts), null);
 
         return array_combine($parts, $splitted);
     }
+
+
+    protected function buildRelatedEntityQueryPart($query, $propertyKey, $additionalKey){
+        $type = $this->getType();
+
+        $relatedProperty = $this->propertySplit($additionalKey, ".");
+        
+        $referenceEntity = "{$type}__{$propertyKey}.related_entity_id";
+        $prefixForAliases = "{$type}__{$propertyKey}__";
+
+        $this->gluon->getParameterHelper($relatedProperty['type'])->buildQueryPart(
+            $query, 
+            $relatedProperty['key'], 
+            $relatedProperty['more'], 
+            $referenceEntity, 
+            $prefixForAliases
+        );
+
+    }
+
+
 
     public  function hydrateValue($line, $entity, $key, $value, $additionalKey){
         $type = $this->getType();

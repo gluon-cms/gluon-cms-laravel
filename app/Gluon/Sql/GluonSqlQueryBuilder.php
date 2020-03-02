@@ -23,6 +23,15 @@ class GluonSqlQueryBuilder
         return $result;
     }
 
+
+    public function propertySplit($propertyName){
+        $parts = ['type', 'key', 'more'];
+        $splitted = explode('.', $propertyName, 3);
+        $splitted = array_pad($splitted, count($parts), null);
+
+        return array_combine($parts, $splitted);
+    }
+
     public function build($template, $conditions = []) {
         Debugbar::startMeasure('gluon-build-query', 'Gluon: build query');
 
@@ -30,7 +39,6 @@ class GluonSqlQueryBuilder
         $query->select([
             'gluon_entity.id as entity_id',
             'gluon_entity.type as entity_type'
-            //dates?
         ]);
 
         $query->orderby('entity_id');
@@ -44,16 +52,9 @@ class GluonSqlQueryBuilder
 
         foreach ($template as $key => $value) {
 
-            list($propertyType, $propertyKey) = explode('.', $value);
-            $this->gluon->getParameterHelper($propertyType)->buildQueryPart($query, $propertyKey);
+            $property = $this->propertySplit($value);
+            $this->gluon->getParameterHelper($property['type'])->buildQueryPart($query, $property['key'], $property['more']);
 
-            if ($propertyType == "relationOne" || $propertyType == "relationMany") {
-                list($relationType, $relationKey, $childPropertyType, $childPropertyKey) = explode('.', $value);
-                $referenceEntity = "{$propertyType}__{$propertyKey}.related_entity_id";
-                $prefixForAliases = "{$propertyType}__{$propertyKey}__";
-
-                $this->gluon->getParameterHelper($childPropertyType)->buildQueryPart($query, $childPropertyKey, $referenceEntity, $prefixForAliases);
-            }
         }
 
         Debugbar::stopMeasure('gluon-build-query');
