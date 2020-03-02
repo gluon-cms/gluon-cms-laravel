@@ -8,7 +8,7 @@ use DB;
 use Schema;
 use Illuminate\Database\Schema\Blueprint;
 
-class GluonSqlParameter_Text  {
+class GluonSqlParameter_Text  extends GluonSqlParameter_Abstract {
 
     public function createTable(){
         Schema::create('gluon_param_text', function (Blueprint $table) {
@@ -28,7 +28,7 @@ class GluonSqlParameter_Text  {
     }
 
 
-    public function processSave($entityId, $parameterKey, $value, $constraints){
+    public function processSave($entityId, $parameterKey, $value, $constraints=null){
         foreach ($value as $lang => $translatedValue) {
             DB::table('gluon_param_text')->updateOrInsert([
                 'gluon_entity_id' => $entityId, 

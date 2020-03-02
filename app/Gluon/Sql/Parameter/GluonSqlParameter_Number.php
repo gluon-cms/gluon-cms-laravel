@@ -8,7 +8,7 @@ use Schema;
 use Illuminate\Database\Schema\Blueprint;
 
 
-class GluonSqlParameter_Number  {
+class GluonSqlParameter_Number extends GluonSqlParameter_Abstract {
 
     public function createTable(){
         Schema::create('gluon_param_number', function (Blueprint $table) {
@@ -24,7 +24,7 @@ class GluonSqlParameter_Number  {
     }
 
 
-    public function processSave($entityId, $parameterKey, $value, $constraints){
+    public function processSave($entityId, $parameterKey, $value, $constraints=null){
         DB::table('gluon_param_number')->updateOrInsert([
             'gluon_entity_id' => $entityId, 
             'key' => $parameterKey

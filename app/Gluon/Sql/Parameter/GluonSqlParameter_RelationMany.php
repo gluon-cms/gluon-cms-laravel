@@ -8,7 +8,7 @@ use Schema;
 use Illuminate\Database\Schema\Blueprint;
 
 
-class GluonSqlParameter_RelationMany  {
+class GluonSqlParameter_RelationMany  extends GluonSqlParameter_RelationAbstract {
 
     public function createTable(){
         Schema::create('gluon_param_relation_many', function (Blueprint $table) {
@@ -27,7 +27,9 @@ class GluonSqlParameter_RelationMany  {
     }
 
 
-    public function processSave($entityId, $parameterKey, $value, $constraints){
+    public function processSave($entityId, $parameterKey, $value, $constraints=null){
+
+        //@todo handle array or scalar for $value
 
         DB::table('gluon_param_relation_many')->where([
             ['gluon_entity_id', $entityId],
@@ -43,9 +45,10 @@ class GluonSqlParameter_RelationMany  {
             ]);
         }
 
+        //handle reverse.
     }
 
-    public function buildQueryPart($query, $propertyKey){
+    public function buildQueryPart($query, $propertyKey, $referenceEntityColumn = 'gluon_entity.id', $aliasPrefix = ''){
 
         $propertyType = "relationMany";
         $tableAlias = "{$propertyType}__{$propertyKey}";

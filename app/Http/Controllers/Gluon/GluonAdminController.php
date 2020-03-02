@@ -87,9 +87,9 @@ class GluonAdminController extends \App\Http\Controllers\Controller
         $entityId = $entityData['id'];
         $entityType = $entityData['type'];
 
-        $result = Gluon::save($entityId, $entityData);
+        $result = Gluon::save($entityId, $entityType, $entityData);
 
-        return redirect("admin/edit/$entityId");
+        return redirect("admin/edit/$entityType/$entityId");
 
         
 /*

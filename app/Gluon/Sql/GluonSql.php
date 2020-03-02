@@ -14,10 +14,10 @@ class GluonSql {
     public function __construct(){
         $this->queryBuilder = new GluonSqlQueryBuilder($this);
 
-        $this->parameterHelper['text'] = new Parameter\GluonSqlParameter_Text();
-        $this->parameterHelper['number'] = new Parameter\GluonSqlParameter_Number();
-        $this->parameterHelper['relationOne'] = new Parameter\GluonSqlParameter_RelationOne();
-        $this->parameterHelper['relationMany'] = new Parameter\GluonSqlParameter_RelationMany();
+        $this->parameterHelper['text'] = new Parameter\GluonSqlParameter_Text($this);
+        $this->parameterHelper['number'] = new Parameter\GluonSqlParameter_Number($this);
+        $this->parameterHelper['relationOne'] = new Parameter\GluonSqlParameter_RelationOne($this);
+        $this->parameterHelper['relationMany'] = new Parameter\GluonSqlParameter_RelationMany($this);
 
     }
 
@@ -61,8 +61,8 @@ class GluonSql {
         return $this->parameterHelper[$type];
     }
 
-    public function save($entityId, $parameters){
-        $constraints = GluonConfig::getConstraints($parameters->type);
+    public function save($entityId, $entityType, $parameters){
+        $constraints = GluonConfig::getConstraints($parameters['type']);
 
         return DB::transaction(function() use($entityId, $parameters, $constraints) {
             foreach ($parameters as $parameter => $value) {

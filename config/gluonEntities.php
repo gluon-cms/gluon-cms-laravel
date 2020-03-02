@@ -26,7 +26,8 @@ return [
             'text.fullname',
             'text.bio',
 
-            'relationMany.articles'
+            'relationMany.articles',
+            'relationOne.mainArticle'
         ],
 
         'category' => [
@@ -43,8 +44,8 @@ return [
         ],
 
         'article.relationOne.author' => [
-            'type' => 'category', 
-            'reverse' => 'relationMany.articles'
+            'type' => 'artist', 
+            'reverse' => 'relationOne.mainArticle'
         ]
 
         /*

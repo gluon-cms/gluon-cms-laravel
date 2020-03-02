@@ -8,7 +8,7 @@ use Schema;
 use Illuminate\Database\Schema\Blueprint;
 
 
-class GluonSqlParameter_RelationOne  {
+class GluonSqlParameter_RelationOne  extends GluonSqlParameter_RelationAbstract {
 
     public function createTable(){
         Schema::create('gluon_param_relation_one', function (Blueprint $table) {
@@ -26,16 +26,25 @@ class GluonSqlParameter_RelationOne  {
     }
 
 
-    public function processSave($entityId, $parameterKey, $value, $constraints){
+    public function processSave($entityId, $parameterKey, $value, $constraints=null){
+
+        //@todo handle array or scalar for $value
+
         DB::table('gluon_param_relation_one')->updateOrInsert([
             'gluon_entity_id' => $entityId, 
             'key' => $parameterKey
         ], [
             'related_entity_id' => $value
         ]);
+
+        if ($constraints && $constraints['reverse']) {
+            list($reverseType, $reverseParameter) = explode(".", $constraints['reverse']);
+            $this->gluon->getParameterHelper($reverseType)->processSave($value, $reverseParameter, $entityId);
+        }
+
     }
 
-    public function buildQueryPart($query, $propertyKey){
+    public function buildQueryPart($query, $propertyKey, $referenceEntityColumn = 'gluon_entity.id', $aliasPrefix = ''){
 
         $propertyType = "relationOne";
         $tableAlias = "{$propertyType}__{$propertyKey}";
