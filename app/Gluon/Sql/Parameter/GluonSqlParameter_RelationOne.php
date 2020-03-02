@@ -26,7 +26,7 @@ class GluonSqlParameter_RelationOne  {
     }
 
 
-    public function processSave($entityId, $parameterKey, $value){
+    public function processSave($entityId, $parameterKey, $value, $constraints){
         DB::table('gluon_param_relation_one')->updateOrInsert([
             'gluon_entity_id' => $entityId, 
             'key' => $parameterKey

@@ -1,7 +1,6 @@
 <template>
     <div>
         <strong>{{ propertyName }}</strong>
-        {{ value }}
 
         <template v-for="(transValue, lang) in value">
             <label>{{ lang }} <span v-if="initialValue[lang] != value[lang]">*</span></label>
@@ -9,10 +8,9 @@
             </textarea>
 
             
+
         </template>
-
-
-        
+        <template v-if="constraints && constraints.style == 'rich'">(RICH)</template>
     </div>
 </template>
 
@@ -21,7 +19,7 @@
         name: "gluon-parameter-text",
 
         props: [
-            'propertyName','initialValue','inputNamePrefix'
+            'propertyName','initialValue','inputNamePrefix', 'constraints'
         ],
 
         data() {
@@ -41,7 +39,8 @@
 
         methods: {
             inputName(key){
-                return `${this.inputNamePrefix}[text.${this.propertyName}][${key}]`
+                let prefix = this.inputNamePrefix ? this.inputNamePrefix : 'entity'
+                return `${prefix}[text.${this.propertyName}][${key}]`
             }
         },
 

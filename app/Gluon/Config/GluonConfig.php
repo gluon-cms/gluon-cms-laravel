@@ -16,6 +16,23 @@ class GluonConfig
         return $this->completeDefinition($definition);
     }
 
+    public function getConstraints($type){
+        $allConstraints = Config::get("gluonEntities.constraints");
+        $contraintsForType = [];
+
+        foreach ($allConstraints as $key => $value) {
+            list($entityType, $parameter) = explode(".", $key, 2);
+
+            if ($entityType != $type){
+                continue;
+            }
+
+            $contraintsForType[$parameter] = $value;
+        }
+
+        return $contraintsForType;
+    }
+
     public function getTemplate($type, $variant){
 
         $result = Config::get("gluonEntities.templates.{$type}--{$variant}");
@@ -32,3 +49,4 @@ class GluonConfig
     }
 
 }
+

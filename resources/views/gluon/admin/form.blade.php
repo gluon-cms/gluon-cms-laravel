@@ -16,8 +16,14 @@
     <input type="hidden" name="entity[type]" value="{{ $entity->type }}"/>
 
     @foreach ($entity->getTypes() as $propertyName => $type)
+
         <div>
-            @include('gluon.admin.form.form_' . $type, ['value' => $entity->getValue($propertyName), 'entity' => $entity, 'propertyName' => $propertyName, 'type' => $type])
+            @include('gluon.admin.form.form_' . $type, [
+                'type' => $type,
+                'value' => $entity->getValue($propertyName), 
+                'entity' => $entity, 'propertyName' => $propertyName, 
+                'constraints' => isset($entityConstraints["{$type}.{$propertyName}"]) ? $entityConstraints["{$type}.{$propertyName}"] : null
+            ])
         </div>
 
     @endforeach

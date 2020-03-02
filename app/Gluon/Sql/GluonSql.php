@@ -62,8 +62,9 @@ class GluonSql {
     }
 
     public function save($entityId, $parameters){
+        $constraints = GluonConfig::getConstraints($parameters->type);
 
-        return DB::transaction(function() use($entityId, $parameters) {
+        return DB::transaction(function() use($entityId, $parameters, $constraints) {
             foreach ($parameters as $parameter => $value) {
 
                 if ($parameter == 'id' || $parameter == 'type') {
@@ -71,7 +72,12 @@ class GluonSql {
                 }
 
                 list($parameterType, $parameterKey) = explode(".", $parameter);
-                $this->getParameterHelper($parameterType)->processSave($entityId, $parameterKey, $value);
+                $this->getParameterHelper($parameterType)->processSave(
+                    $entityId, 
+                    $parameterKey, 
+                    $value, 
+                    isset($constraints[$parameter]) ? $constraints[$parameter] : null
+                );
             }
         });
 

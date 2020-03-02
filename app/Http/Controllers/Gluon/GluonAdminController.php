@@ -14,6 +14,7 @@ class GluonAdminController extends \App\Http\Controllers\Controller
     public function list($entityType) {
         $entityTypeList = GluonConfig::getEntityTypeList();
         $entityDefinition = GluonConfig::getDefinition($entityType);
+
         $entityList = Gluon::getList($entityType);
 
         return view('gluon.admin.list', [
@@ -30,10 +31,12 @@ class GluonAdminController extends \App\Http\Controllers\Controller
     public function edit($entityType, $id) {
         $entity = Gluon::getOne($entityType, $id);
         $entityDefinition = GluonConfig::getDefinition($entity->type);
+        $entityConstraints = GluonConfig::getConstraints($entity->type);
 
         return view('gluon.admin.form', [
             'entityType' => $entity->type,
             'entityDefinition' => $entityDefinition,
+            'entityConstraints' => $entityConstraints,
             'entity' => $entity,
         ]);
     }

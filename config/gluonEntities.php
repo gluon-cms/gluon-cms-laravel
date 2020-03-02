@@ -7,7 +7,7 @@ return [
     | Gluon based entities
     |--------------------------------------------------------------------------
     |
-    | Here you define your CMS entities, how you want to build them and how you
+    | Here you define your CMS entities, how you want to constraint them and how you
     | want to query them.
     |
     */
@@ -34,6 +34,31 @@ return [
 
             'relationMany.articles'
         ]
+    ],
+
+    'constraints' => [
+
+        'article.text.content' => [
+            'style' => 'rich'
+        ],
+
+        'article.relationOne.author' => [
+            'type' => 'category', 
+            'reverse' => 'relationMany.articles'
+        ]
+
+        /*
+        'article' => [
+            'text.content' => [
+                'style' => 'rich'
+            ],
+
+            'relationOne.author' => [
+                'type' => 'category', 
+                'reverse' => 'relationMany.articles'
+            ]
+        ]*/
+        
     ],
 
 
@@ -70,14 +95,5 @@ return [
         ]
     ]
 
-/*
-    'admin' => [
-        'article.toMany.associated' => ['article'],
-        'article.toOne.author' => ['artist'],
-
-        'representation.toOne.event' => ['event'], //reverse  => event.toMany.representations
-        'event.toMany.representations' => ['representation'], //reverse  => representation.toOne.event
-    ],
-*/
 
 ];

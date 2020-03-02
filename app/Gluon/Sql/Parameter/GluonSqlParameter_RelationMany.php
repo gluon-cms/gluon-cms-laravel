@@ -27,7 +27,7 @@ class GluonSqlParameter_RelationMany  {
     }
 
 
-    public function processSave($entityId, $parameterKey, $value){
+    public function processSave($entityId, $parameterKey, $value, $constraints){
 
         DB::table('gluon_param_relation_many')->where([
             ['gluon_entity_id', $entityId],

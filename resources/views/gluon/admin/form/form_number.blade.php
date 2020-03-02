@@ -1,1 +1,6 @@
-<gluon-parameter-number property-name="{{ $propertyName }}" initial-value="{{ $value }}" input-name-prefix="entity"></gluon-parameter-number>
+
+<gluon-parameter-number 
+    :initial-value='@json($value)'
+    :constraints='@json($constraints)'
+    property-name="{{ $propertyName }}" 
+/ >

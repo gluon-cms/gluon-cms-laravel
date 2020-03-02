@@ -1968,11 +1968,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "gluon-parameter-text",
-  props: ['propertyName', 'initialValue', 'inputNamePrefix'],
+  props: ['propertyName', 'initialValue', 'inputNamePrefix', 'constraints'],
   data: function data() {
     return {
       'value': null
@@ -1988,7 +1986,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     inputName: function inputName(key) {
-      return "".concat(this.inputNamePrefix, "[text.").concat(this.propertyName, "][").concat(key, "]");
+      var prefix = this.inputNamePrefix ? this.inputNamePrefix : 'entity';
+      return "".concat(prefix, "[text.").concat(this.propertyName, "][").concat(key, "]");
     }
   },
   mounted: function mounted() {}
@@ -37419,7 +37418,7 @@ var render = function() {
     "div",
     [
       _c("strong", [_vm._v(_vm._s(_vm.propertyName))]),
-      _vm._v("\n    " + _vm._s(_vm.value) + "\n\n    "),
+      _vm._v(" "),
       _vm._l(_vm.value, function(transValue, lang) {
         return [
           _c("label", [
@@ -37450,7 +37449,11 @@ var render = function() {
             }
           })
         ]
-      })
+      }),
+      _vm._v(" "),
+      _vm.constraints && _vm.constraints.style == "rich"
+        ? [_vm._v("(RICH)")]
+        : _vm._e()
     ],
     2
   )
