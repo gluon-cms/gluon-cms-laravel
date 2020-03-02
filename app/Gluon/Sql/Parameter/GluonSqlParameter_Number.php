@@ -25,7 +25,7 @@ class GluonSqlParameter_Number extends GluonSqlParameter_Abstract {
 
 
     public function processSave($entityId, $parameterKey, $value, $constraints=null){
-        
+
         DB::table('gluon_param_number')->updateOrInsert([
             'gluon_entity_id' => $entityId, 
             'key' => $parameterKey
@@ -46,7 +46,7 @@ class GluonSqlParameter_Number extends GluonSqlParameter_Abstract {
         });
     }
 
-    public  function hydrateValue($entity, $key, $value, $additionalKey){
+    public  function hydrateValue($line, $entity, $key, $value, $additionalKey){
         $entity->set('number', $key, $value);
     }
 

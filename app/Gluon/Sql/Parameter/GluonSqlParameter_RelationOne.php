@@ -10,6 +10,10 @@ use Illuminate\Database\Schema\Blueprint;
 
 class GluonSqlParameter_RelationOne  extends GluonSqlParameter_RelationAbstract {
 
+    public function getType(){
+        return 'relationOne';
+    }
+
     public function createTable(){
         Schema::create('gluon_param_relation_one', function (Blueprint $table) {
             $table->unsignedBigInteger('gluon_entity_id');

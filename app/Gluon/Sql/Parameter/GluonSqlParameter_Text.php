@@ -71,7 +71,7 @@ class GluonSqlParameter_Text  extends GluonSqlParameter_Abstract {
 
     }
 
-    public  function hydrateValue($entity, $key, $value, $additionalKey){
+    public  function hydrateValue($line, $entity, $key, $value, $additionalKey){
         $valueMap = $entity->getValue($key);
 
         if (! $valueMap){
