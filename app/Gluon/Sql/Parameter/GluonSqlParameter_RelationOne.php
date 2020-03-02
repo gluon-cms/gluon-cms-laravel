@@ -78,7 +78,9 @@ class GluonSqlParameter_RelationOne  extends GluonSqlParameter_RelationAbstract 
             $join->on("$baseTableAlias.id", '=', $referenceId);
         });
 
-        $this->buildRelatedEntityQueryPart($query, $propertyKey, $additionalKey);
+
+
+        $this->buildRelatedEntityQueryPart($query, $propertyKey, $additionalKey, $referenceEntityColumn, $aliasPrefix);
     }
 
     public function makeValueMap() {

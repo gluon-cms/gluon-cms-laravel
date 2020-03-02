@@ -24,7 +24,7 @@ abstract class GluonSqlParameter_RelationAbstract  extends GluonSqlParameter_Abs
     }
 
 
-    protected function buildRelatedEntityQueryPart($query, $propertyKey, $additionalKey){
+    protected function buildRelatedEntityQueryPart($query, $propertyKey, $additionalKey, $referenceEntity, $prefixForAliases){
         $type = $this->getType();
 
         $relatedProperty = $this->propertySplit($additionalKey, ".");

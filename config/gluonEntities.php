@@ -62,7 +62,7 @@ return [
             'relationOne.author.text.fullname',
             'relationOne.category.text.label',
 
-            //'relationOne.author.relationOne.mainArticle.text.title',
+            //'relationOne.author.relationOne.mainArticle.text.title', 
         ],
 
         'article--detail' => [
