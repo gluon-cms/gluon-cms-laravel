@@ -9,22 +9,21 @@
 @section('main-content')
     
 
-    <form method="POST" action="{{ url('admin/handleForm/') }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ url('admin/handleForm/') }}" enctype="multipart/form-data" class="standardForm">
     @csrf
 
     <input type="hidden" name="entity[id]" value="{{ $entity->id }}"/>
     <input type="hidden" name="entity[type]" value="{{ $entity->type }}"/>
 
-    @foreach ($entity->getTypes() as $propertyName => $type)
+    @foreach ($entityDefinition as $parameter)
 
-        <div>
-            @include('gluon.admin.form.form_' . $type, [
-                'type' => $type,
-                'value' => $entity->getValue($propertyName), 
-                'entity' => $entity, 'propertyName' => $propertyName, 
-                'constraints' => isset($entityConstraints["{$type}.{$propertyName}"]) ? $entityConstraints["{$type}.{$propertyName}"] : null
-            ])
-        </div>
+        @include('gluon.admin.form.form_' . $parameter['type'], [
+            'type' => $parameter['type'],
+            'key' => $parameter['key'], 
+            'value' => $entity->getValue($parameter['key']), 
+            'entity' => $entity, 
+            'constraints' => isset($entityConstraints[ $parameter['property'] ]) ? $entityConstraints[ $parameter['property'] ] : null
+        ])
 
     @endforeach
 

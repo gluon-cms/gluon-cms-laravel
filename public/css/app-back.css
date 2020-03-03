@@ -1,40 +1,179 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);.gluonAdmin .container {
+@import url(https://fonts.googleapis.com/css?family=Nunito);@import url(https://fonts.googleapis.com/css?family=Love+Ya+Like+A+Sister|Lobster|Open+Sans|Roboto|Roboto+Slab:900&display=swap);.gluonAdmin {
+  font-family: "Open Sans", sans-serif;
+  /*font-family: 'Roboto', sans-serif;*/
+}
+
+.gluonAdmin h1,
+.gluonAdmin h2,
+.gluonAdmin h3,
+.gluonAdmin h4,
+.gluonAdmin h5,
+.gluonAdmin h6,
+.gluonAdmin strong {
+  font-family: "Roboto Slab", serif;
+  text-transform: uppercase;
+}
+
+.gluonAdmin,
+.gluonAdmin * {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  list-style: none;
+}
+
+html,
+.gluonAdmin {
+  height: 100%;
+}
+
+.gluonAdmin .page {
   overflow: auto;
+  height: 100%;
+  /* TODO calc */
+  --menu-width: 15rem;
+  --dark-color: #281c3f;
+  --light-color: #f4f3f6;
+  --white-color: #f4f3f6;
+  margin: 1rem;
+  box-shadow: 0em 1em 1em 0px rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
+}
+
+.gluonAdmin {
+  background: var(--light-color);
+}
+
+.gluonAdmin header {
+  background: var(--dark-color);
+  color: var(--white-color);
+  padding: 1rem;
+  font-size: 1rem;
 }
 
 .gluonAdmin main {
   float: right;
-  width: calc(100% - 15rem);
+  width: calc(100% - var(--menu-width));
 }
 
 .gluonAdmin aside {
   float: right;
-  width: 15rem;
-  background: #cccccc;
+  width: var(--menu-width);
+  background: var(--light-color);
+  height: 100%;
 }
 
 .gluonAdmin .mainContent {
-  padding: 1em;
+  padding: 1rem;
 }
 
-table,
-td,
-th {
-  border: 1px solid black;
+.gluonAdmin .asideContent {
+  padding: 1rem;
+}
+
+.gluonAdmin .mainContent__title {
+  margin-bottom: 1em;
+}
+
+.gluonAdmin .standardLink {
+  color: var(--dark-color);
+  font-family: "Roboto Slab", serif;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.gluonAdmin .entityTypeList__entity {
+  text-align: right;
+}
+
+.gluonAdmin .entityTypeList__entity a {
+  display: block;
+  padding: 0.2em;
+  border-bottom: 2px solid rgba(255, 255, 255, 1);
+  text-decoration: none;
+  font-size: 1.2em;
+  text-transform: uppercase;
+  font-family: "Roboto Slab", serif;
+  transition: all 0.2s;
+  position: relative;
+  color: black;
+}
+
+.gluonAdmin .entityTypeList__entity a::after {
+  content: ">";
+  transform: scaleX(0);
+  transition: all 0.2s;
+  display: block;
+  color: var(--dark-color);
+  position: absolute;
+  top: 0.1em;
+  right: 0;
+}
+
+.gluonAdmin .entityTypeList__entity.selected a,
+.gluonAdmin .entityTypeList__entity a:hover {
+  padding-right: 0.8em;
+}
+
+.gluonAdmin .entityTypeList__entity.selected a {
+  background: white;
+}
+
+.gluonAdmin .entityTypeList__entity.selected a::after,
+.gluonAdmin .entityTypeList__entity a:hover::after {
+  transform: scaleX(1);
+}
+
+.gluonAdmin .standardTable {
   border-collapse: collapse;
-  padding: 0.3em;
+  --line-color: var(--dark-color);
 }
 
-/*
-table,
-thead,
-  tbody,
-  th,
-  tr,
-  td {
-    text-align: left;
-    display: block;
-    width: auto;
-    background: yellow;
-  }*/
+.gluonAdmin .standardTable .noValue {
+  font-size: 0.8em;
+  opacity: 0.1;
+  font-style: italic;
+}
+
+.gluonAdmin .standardTable th {
+  font-family: "Roboto Slab", serif;
+  text-transform: uppercase;
+  vertical-align: top;
+  text-align: left;
+  padding: 0.3em;
+  border-left: 1px solid var(--line-color);
+  border-right: 1px solid var(--line-color);
+  border-bottom: 1px solid var(--line-color);
+}
+
+.gluonAdmin .standardTable th .parameterType {
+  font-size: 0.6em;
+  display: block;
+  opacity: 0.4;
+}
+
+.gluonAdmin .standardTable td {
+  padding: 0.3em;
+  border-left: 1px solid var(--line-color);
+  border-right: 1px solid var(--line-color);
+}
+
+.gluonAdmin .standardTable th:first-child,
+.gluonAdmin .standardTable td:first-child {
+  border-left: 0;
+}
+
+.gluonAdmin .standardTable th:last-child,
+.gluonAdmin .standardTable td:last-child {
+  border-right: 0;
+}
+
+.gluonAdmin .standardTable tr:nth-of-type(2n) {
+  background: var(--light-color);
+}
+
+.gluonAdmin .actionMenu {
+  margin: 2em 0;
+}
 

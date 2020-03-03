@@ -1935,8 +1935,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     inputName: function inputName() {
-      var prefix = this.inputNamePrefix ? this.inputNamePrefix : 'entity';
-      return "".concat(prefix, "[number.").concat(this.propertyName, "]");
+      return this.inputNamePrefix;
     }
   },
   mounted: function mounted() {}
@@ -1987,8 +1986,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     inputName: function inputName(key) {
-      var prefix = this.inputNamePrefix ? this.inputNamePrefix : 'entity';
-      return "".concat(prefix, "[text.").concat(this.propertyName, "][").concat(key, "]");
+      return "".concat(this.inputNamePrefix, "[").concat(key, "]");
     }
   },
   mounted: function mounted() {}

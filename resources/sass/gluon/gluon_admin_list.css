@@ -1,0 +1,64 @@
+.gluonAdmin .standardTable {
+  border-collapse: collapse;
+
+  --line-color: var(--dark-color);
+}
+
+.gluonAdmin .standardTable .noValue {
+  font-size: .8em;
+  opacity: 0.1;
+  font-style: italic;
+}
+
+.gluonAdmin .standardTable th {
+  font-family: 'Roboto Slab', serif;
+  text-transform: uppercase;
+
+  vertical-align: top;
+  text-align: left;
+  padding: 0.3em;
+
+  border-left: 1px solid var(--line-color);
+  border-right: 1px solid var(--line-color);
+  border-bottom: 1px solid var(--line-color);
+  
+
+}
+
+.gluonAdmin .standardTable th .parameterType {
+  font-size: 0.6em;
+  display: block;
+  opacity: 0.4;
+}
+
+
+
+.gluonAdmin .standardTable td {
+  padding: 0.3em;
+  border-left: 1px solid var(--line-color);
+  border-right: 1px solid var(--line-color);
+}
+
+.gluonAdmin .standardTable th:first-child,
+.gluonAdmin .standardTable td:first-child {
+  border-left: 0;
+}
+
+.gluonAdmin .standardTable th:last-child,
+.gluonAdmin .standardTable td:last-child {
+  border-right: 0;
+  
+}
+
+
+
+.gluonAdmin .standardTable tr:nth-of-type(2n) {
+  background: var(--light-color);
+}
+
+
+
+
+.gluonAdmin .actionMenu {
+  margin: 2em 0;
+}

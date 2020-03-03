@@ -39,8 +39,7 @@
 
         methods: {
             inputName(key){
-                let prefix = this.inputNamePrefix ? this.inputNamePrefix : 'entity'
-                return `${prefix}[text.${this.propertyName}][${key}]`
+                return `${this.inputNamePrefix}[${key}]`
             }
         },
 

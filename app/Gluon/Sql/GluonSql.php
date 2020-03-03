@@ -21,6 +21,10 @@ class GluonSql {
 
     }
 
+    public function getEmpty($type) {
+        return new \App\Gluon\GluonEntityResult($type, null);
+    }
+
     public function getOne($type, $id, $variant = null) {
         Debugbar::startMeasure('gluon-getone', 'Gluon: get One');
 

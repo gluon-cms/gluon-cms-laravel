@@ -21,7 +21,8 @@ return [
             'number.score',
 
             'relationOne.author',
-            'relationOne.category'
+            'relationOne.category',
+            'relationMany.categories'
         ],
 
         'artist' => [

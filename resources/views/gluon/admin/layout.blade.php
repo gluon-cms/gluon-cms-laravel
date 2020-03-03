@@ -4,22 +4,24 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Gluon - Admin</title>
+        <title>@yield('header-title')</title>
 
         <link rel="stylesheet" href="{{ mix('css/app-back.css') }}">
 
     </head>
     <body class="gluonAdmin">
-        <section class="container" id="app">
+        <section class="page" id="app">
             <header>
-                <div>
-                    
+                <div class="headerContent">
+                    <h1>Gluon</h1>
                 </div>
             </header>
 
             <main>
+                
+
                 <div class="mainContent">
-                    <h1>@yield('page-title')</h1>
+                    <h1 class="mainContent__title">@yield('header-title')</h1>
                     @yield('main-content')
                 </div>
                 
@@ -32,7 +34,9 @@
             </aside>
 
             <footer>
-                
+                <div class="footerContent">
+                    
+                </div>
             </footer>
         </section>
 

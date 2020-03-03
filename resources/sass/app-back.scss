@@ -1,9 +1,7 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
-// Variables
-@import 'gluon/gluon_admin';
-
-body {
-    
-}
+@import 'gluon/gluon_admin_layout';
+@import 'gluon/gluon_admin_menu';
+@import 'gluon/gluon_admin_list';
+@import 'gluon/gluon_admin_form';

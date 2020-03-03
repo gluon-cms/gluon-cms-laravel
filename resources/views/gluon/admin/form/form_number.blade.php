@@ -1,6 +1,15 @@
+<div class="formItem number">
+    <h2 class="formItem__label">{{ $key }}</h2>
 
-<gluon-parameter-number 
-    :initial-value='@json($value)'
-    :constraints='@json($constraints)'
-    property-name="{{ $propertyName }}" 
-/ >
+    <div class="formItem__widget">
+        <gluon-parameter-number 
+            :initial-value='@json($value)'
+            :constraints='@json($constraints)'
+            input-name-prefix="entity[{{ $key }}]"
+        / >
+    </div>
+
+</div>
+
+
+

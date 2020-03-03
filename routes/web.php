@@ -25,5 +25,5 @@ Route::get('api/list/{type}', 'Gluon\GluonApiController@list');
 Route::get('admin', 'Gluon\GluonAdminController@home');
 Route::get('admin/list/{type}', 'Gluon\GluonAdminController@list');
 Route::get('admin/edit/{type}/{id}', 'Gluon\GluonAdminController@edit');
-Route::get('admin/new/{type}', 'Gluon\GluonAdminController@create');
+Route::get('admin/create/{type}', 'Gluon\GluonAdminController@create');
 Route::post('admin/handleForm', 'Gluon\GluonAdminController@handleForm');

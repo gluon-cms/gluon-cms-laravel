@@ -1,18 +1,18 @@
 @extends('gluon.admin.layout')
 
-@section('page-title', trans("gluon.${entityType}_plural"))
+@section('header-title', trans("gluon.${entityType}_plural"))
 
 @section('aside-content')
     <ul class="entityTypeList">
         @foreach ($entityTypeList as $type)
-        <li class="entityTypeList__entity $type"><a href="{{ url("admin/list", [$type]) }}">{{ trans("gluon.${type}_plural") }}</a></li>
+        <li class="entityTypeList__entity $type @if($type==$entityType) selected @endif"><a href="{{ url("admin/list", [$type]) }}">{{ trans("gluon.${type}_plural") }}</a></li>
         @endforeach
     </ul>
 @endsection
 
 @section('main-content')
 
-    <table class="entityList">
+    <table class="entityList standardTable">
 
 
         <thead>
@@ -65,13 +65,16 @@
 
                 @endforeach
 
-                <td><a href="{{ url("admin/edit", [$entity->type, $entity->id]) }}">{{ trans("gluon.ui.action_edit") }}</a></td>
+                <td><a class="standardLink" href="{{ url("admin/edit", [$entity->type, $entity->id]) }}">{{ trans("gluon.ui.action_edit") }}</a></td>
             </tr>  
         @endforeach
         </tbody>
 
     </table>
 
-    <p><a href="{{ url("admin/create", [$entityType]) }}">{{ trans("gluon.ui.action_create") }}</a></p>
+    <ul class="actionMenu">
+        <li><a class="standardLink" href="{{ url("admin/create", [$entityType]) }}">{{ trans("gluon.ui.action_create") }}</a></li>
+        <li><a class="standardLink" href="{{ url("admin/create", [$entityType]) }}">{{ trans("gluon.ui.action_export") }}</a></li>
+    </ul>
 
 @endsection

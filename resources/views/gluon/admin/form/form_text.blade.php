@@ -1,6 +1,12 @@
-<gluon-parameter-text 
-    :initial-value='@json($value)'
-    :constraints='@json($constraints)'
-    property-name="{{ $propertyName }}" 
-    input-name-prefix="entity"
-/ >
+<div class="formItem text">
+    <h2 class="formItem__label">{{ $key }}</h2>
+
+    <div class="formItem__widget">
+        <gluon-parameter-text 
+        :initial-value='@json($value)'
+        :constraints='@json($constraints)'
+        input-name-prefix="entity[{{ $key }}]"
+        / >
+    </div>
+
+</div>

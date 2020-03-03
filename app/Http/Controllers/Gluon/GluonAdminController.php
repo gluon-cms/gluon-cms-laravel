@@ -43,8 +43,10 @@ class GluonAdminController extends \App\Http\Controllers\Controller
 
     public function create($type) {
         $entityDefinition = GluonConfig::getDefinition($type);
+        $entity = Gluon::getEmpty($type);
 
         return view('gluon.admin.form', [
+            'entity' => $entity,
             'entityType' => $type,
             'entityDefinition' => $entityDefinition,
         ]);
