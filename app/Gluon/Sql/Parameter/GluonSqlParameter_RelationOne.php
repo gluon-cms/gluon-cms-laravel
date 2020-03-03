@@ -14,6 +14,10 @@ class GluonSqlParameter_RelationOne  extends GluonSqlParameter_RelationAbstract 
         return 'relationOne';
     }
 
+    public function getTable(){
+        return 'gluon_param_relation_one';
+    }
+
     public function createTable(){
         Schema::create('gluon_param_relation_one', function (Blueprint $table) {
             $table->unsignedBigInteger('gluon_entity_id');
@@ -48,40 +52,7 @@ class GluonSqlParameter_RelationOne  extends GluonSqlParameter_RelationAbstract 
 
     }
 
-    public function buildQueryPart($query, $propertyKey, $additionalKey, $referenceEntityColumn = 'gluon_entity.id', $aliasPrefix = ''){
-
-        $propertyType = "relationOne";
-        $tableAlias = "{$propertyType}__{$propertyKey}";
-        $columnIdAlias = "{$propertyType}__{$propertyKey}__entity_id";
-        
-
-        if (in_array("$tableAlias.related_entity_id as $columnIdAlias", $query->columns)) {
-            return;
-        }
-
-        $query->addSelect("$tableAlias.related_entity_id as $columnIdAlias");
-
-        $query->leftJoin("gluon_param_relation_one as $tableAlias", function ($join) use ($tableAlias, $propertyKey) {
-            $join->on("$tableAlias.gluon_entity_id", '=', 'gluon_entity.id');
-            $join->where("$tableAlias.key", '=', $propertyKey);
-        });
-
-        //
-
-        $baseTableAlias = "{$propertyType}__{$propertyKey}__baseEntity";
-        $columnTypeAlias = "{$propertyType}__{$propertyKey}__entity_type";
-        $referenceId = "$tableAlias.related_entity_id";
-
-        $query->addSelect("$baseTableAlias.type as $columnTypeAlias");
-
-        $query->leftJoin("gluon_entity as $baseTableAlias", function ($join) use ($baseTableAlias, $referenceId) {
-            $join->on("$baseTableAlias.id", '=', $referenceId);
-        });
-
-
-
-        $this->buildRelatedEntityQueryPart($query, $propertyKey, $additionalKey, $referenceEntityColumn, $aliasPrefix);
-    }
+    
 
     public function makeValueMap() {
 

@@ -34,16 +34,21 @@ class GluonSqlParameter_Number extends GluonSqlParameter_Abstract {
         ]);
     }
 
-    public function buildQueryPart($query, $propertyKey, $additionalKey, $referenceEntityColumn = 'gluon_entity.id', $aliasPrefix = ''){
+    public function buildQueryPart($query, $propertyKey, $queryData){
         $propertyType = "number";
-        $tableAlias = "{$aliasPrefix}{$propertyType}__{$propertyKey}";
+        $aliasPrefix = $queryData['aliasPrefix'];
+        $referenceEntityId = $queryData['referenceEntityId'];
 
-        $query->addSelect("$tableAlias.value as $tableAlias");
+        $valueAlias = "{$aliasPrefix}{$propertyType}__{$propertyKey}";
+        $tableAlias = $valueAlias;
 
-        $query->leftJoin("gluon_param_number as $tableAlias", function ($join) use ($tableAlias, $propertyKey, $referenceEntityColumn) {
-            $join->on("$tableAlias.gluon_entity_id", '=', $referenceEntityColumn);
+        $query->leftJoin("gluon_param_number as $tableAlias", function ($join) use ($tableAlias, $propertyKey, $referenceEntityId) {
+            $join->on("$tableAlias.gluon_entity_id", '=', $referenceEntityId);
             $join->where("$tableAlias.key", '=', $propertyKey);
         });
+
+        $query->addSelect("$tableAlias.value as $valueAlias");
+
     }
 
     public  function hydrateValue($line, $entity, $key, $value, $additionalKey){

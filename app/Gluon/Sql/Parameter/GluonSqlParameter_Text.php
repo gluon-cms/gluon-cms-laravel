@@ -42,19 +42,24 @@ class GluonSqlParameter_Text  extends GluonSqlParameter_Abstract {
 
 
 
-    public function buildQueryPart($query, $propertyKey, $additionalKey, $referenceEntityColumn = 'gluon_entity.id', $aliasPrefix = ''){
+    public function buildQueryPart($query, $propertyKey, $queryData){
         $langs = ['fr', 'en'];
         $propertyType = 'text';
 
-        foreach ($langs as $lang) {
-            $tableAlias = "{$aliasPrefix}{$propertyType}__{$propertyKey}__{$lang}";
-            $query->addSelect("$tableAlias.value as $tableAlias");
+        $aliasPrefix = $queryData['aliasPrefix'];
+        $referenceEntityId = $queryData['referenceEntityId'];
 
-            $query->leftJoin("gluon_param_text as $tableAlias", function ($join) use ($tableAlias, $propertyKey, $lang, $referenceEntityColumn) {
-                $join->on("$tableAlias.gluon_entity_id", '=', $referenceEntityColumn);
+        foreach ($langs as $lang) {
+            $valueAlias = "{$aliasPrefix}{$propertyType}__{$propertyKey}__{$lang}";
+            $tableAlias = $valueAlias;
+
+            $query->leftJoin("gluon_param_text as $tableAlias", function ($join) use ($tableAlias, $propertyKey, $lang, $referenceEntityId) {
+                $join->on("$tableAlias.gluon_entity_id", '=', $referenceEntityId);
                 $join->where("$tableAlias.lang_code", '=', $lang);
                 $join->where("$tableAlias.key", '=', $propertyKey);
             });
+
+            $query->addSelect("$tableAlias.value as $valueAlias");
 
         }
     }

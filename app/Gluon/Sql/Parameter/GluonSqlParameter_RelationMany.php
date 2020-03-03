@@ -14,6 +14,11 @@ class GluonSqlParameter_RelationMany  extends GluonSqlParameter_RelationAbstract
         return 'relationMany';
     }
 
+    public function getTable(){
+        return 'gluon_param_relation_many';
+    }
+
+
     public function createTable(){
         Schema::create('gluon_param_relation_many', function (Blueprint $table) {
             $table->unsignedBigInteger('gluon_entity_id');
@@ -52,41 +57,6 @@ class GluonSqlParameter_RelationMany  extends GluonSqlParameter_RelationAbstract
         //handle reverse.
     }
 
-    public function buildQueryPart($query, $propertyKey, $additionalKey, $referenceEntityColumn = 'gluon_entity.id', $aliasPrefix = ''){
-
-        $propertyType = "relationMany";
-        $tableAlias = "{$propertyType}__{$propertyKey}";
-        $columnIdAlias = "{$propertyType}__{$propertyKey}__entity_id";
-        $columnRankAlias = "{$propertyType}__{$propertyKey}__rank";
-
-        if (in_array("$tableAlias.related_entity_id as $columnIdAlias", $query->columns)) {
-            return;
-        }
-
-        $query->addSelect("$tableAlias.related_entity_id as $columnIdAlias");
-        $query->addSelect("$tableAlias.rank as $columnRankAlias");
-
-        $query->orderby("$columnRankAlias");
-
-        $query->leftJoin("gluon_param_relation_many as $tableAlias", function ($join) use ($tableAlias, $propertyKey) {
-            $join->on("$tableAlias.gluon_entity_id", '=', 'gluon_entity.id');
-            $join->where("$tableAlias.key", '=', $propertyKey);
-        });
-
-        //
-
-        $baseTableAlias = "{$propertyType}__{$propertyKey}__baseEntity";
-        $columnTypeAlias = "{$propertyType}__{$propertyKey}__entity_type";
-        $referenceId = "$tableAlias.related_entity_id";
-
-        $query->addSelect("$baseTableAlias.type as $columnTypeAlias");
-
-        $query->leftJoin("gluon_entity as $baseTableAlias", function ($join) use ($baseTableAlias, $referenceId) {
-            $join->on("$baseTableAlias.id", '=', $referenceId);
-        });
-
-        $this->buildRelatedEntityQueryPart($query, $propertyKey, $additionalKey, $referenceEntityColumn, $aliasPrefix);
-    }
 
     public function makeValueMap() {
 

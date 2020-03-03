@@ -15,7 +15,7 @@ class GluonSqlQueryBuilder
 
     public function buildAndGet($template, $conditions = []) {
         $query = $this->build($template, $conditions);
-
+        //dd($query->toSql());
         Debugbar::startMeasure('gluon-get-query', 'Gluon: execute query');
         $result = $query->get();
         Debugbar::stopMeasure('gluon-get-query');
@@ -51,9 +51,15 @@ class GluonSqlQueryBuilder
         }
 
         foreach ($template as $key => $value) {
-
             $property = $this->propertySplit($value);
-            $this->gluon->getParameterHelper($property['type'])->buildQueryPart($query, $property['key'], $property['more']);
+
+            $queryData = [
+                'propertyMore' => $property['more'],
+                'referenceEntityId' => 'gluon_entity.id',
+                'aliasPrefix' => ''
+            ];
+
+            $this->gluon->getParameterHelper($property['type'])->buildQueryPart($query, $property['key'], $queryData);
 
         }
 

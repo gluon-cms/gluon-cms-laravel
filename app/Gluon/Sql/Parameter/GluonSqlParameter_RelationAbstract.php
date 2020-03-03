@@ -12,6 +12,7 @@ use Illuminate\Database\Schema\Blueprint;
 
 abstract class GluonSqlParameter_RelationAbstract  extends GluonSqlParameter_Abstract {
     abstract public function getType();
+    abstract public function getTable();
 
     protected $relatedEntities = [];
 
@@ -24,20 +25,75 @@ abstract class GluonSqlParameter_RelationAbstract  extends GluonSqlParameter_Abs
     }
 
 
-    protected function buildRelatedEntityQueryPart($query, $propertyKey, $additionalKey, $referenceEntity, $prefixForAliases){
+    public function buildQueryPart($query, $propertyKey, $queryData){
+        $relatedEntityIdColumn = $this->buildQueryPart_RelatedIdAndType($query, $propertyKey, $queryData);
+
+        $queryData['referenceEntityId'] = $relatedEntityIdColumn;
+        $this->buildQueryPart_RelatedParameters($query, $propertyKey, $queryData);
+    }
+
+    protected function buildQueryPart_RelatedIdAndType($query, $propertyKey, $queryData){
+        $propertyType = $this->getType();
+        $table = $this->getTable();
+
+        $aliasPrefix = $queryData['aliasPrefix'];
+        $referenceEntityId = $queryData['referenceEntityId'];
+
+        $tableAlias    = "{$aliasPrefix}{$propertyType}__{$propertyKey}";
+        $columnIdAlias = "{$aliasPrefix}{$propertyType}__{$propertyKey}__entity_id";
+
+        $relatedEntityId = "$tableAlias.related_entity_id"; //used as base for sub joins
+        $selectRelatedId = "$relatedEntityId as $columnIdAlias";
+
+        //already selected ? No need to select again.
+        if (in_array($selectRelatedId, $query->columns)) {
+            return $relatedEntityId;
+        }
+
+        //select related entity id...
+        $query->leftJoin("$table as $tableAlias", function ($join) use ($tableAlias, $propertyKey, $referenceEntityId) {
+            $join->on("$tableAlias.gluon_entity_id", '=', $referenceEntityId);
+            $join->where("$tableAlias.key", '=', $propertyKey);
+        });
+
+        $query->addSelect($selectRelatedId);
+
+        //select related rank if many
+        if ($propertyType == 'relationMany') {
+            $columnRankAlias = "{$aliasPrefix}{$propertyType}__{$propertyKey}__rank";
+            $query->addSelect("$tableAlias.rank as $columnRankAlias");
+            $query->orderby("$columnRankAlias");
+        }
+
+        //then related entity type (in the base gluon_entity table) ...
+        $baseTableAlias = "{$aliasPrefix}{$propertyType}__{$propertyKey}__baseEntity";
+        $columnTypeAlias = "{$aliasPrefix}{$propertyType}__{$propertyKey}__entity_type";
+
+        $query->leftJoin("gluon_entity as $baseTableAlias", function ($join) use ($baseTableAlias, $relatedEntityId) {
+            $join->on("$baseTableAlias.id", '=', $relatedEntityId);
+        });
+
+        $query->addSelect("$baseTableAlias.type as $columnTypeAlias");
+
+        return $relatedEntityId;
+    }
+
+
+
+    protected function buildQueryPart_RelatedParameters($query, $propertyKey, $queryData){
         $type = $this->getType();
 
+        $additionalKey = $queryData['propertyMore'];
         $relatedProperty = $this->propertySplit($additionalKey, ".");
-        
-        $referenceEntity = "{$type}__{$propertyKey}.related_entity_id";
-        $prefixForAliases = "{$type}__{$propertyKey}__";
+
+        $referenceEntity = $queryData['referenceEntityId'];
+        $queryData['propertyMore'] = $relatedProperty['more'];
+        $queryData['aliasPrefix'] .= "{$type}__{$propertyKey}__";
 
         $this->gluon->getParameterHelper($relatedProperty['type'])->buildQueryPart(
             $query, 
             $relatedProperty['key'], 
-            $relatedProperty['more'], 
-            $referenceEntity, 
-            $prefixForAliases
+            $queryData
         );
 
     }
