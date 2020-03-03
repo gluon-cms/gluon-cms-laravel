@@ -109,6 +109,10 @@ abstract class GluonSqlParameter_RelationAbstract  extends GluonSqlParameter_Abs
         $relatedEntityId = $line->{$relatedEntityIdKey};
         $relatedEntityType = $line->{$relatedEntityTypeKey};
 
+        if (! $relatedEntityId) {
+            return;
+        }
+
         if ($additionalKey == "entity_id"){
             $relatedEntity = new GluonEntityResult($relatedEntityType, $value);
             $this->relatedEntities[ $value ] = $relatedEntity;
@@ -116,6 +120,7 @@ abstract class GluonSqlParameter_RelationAbstract  extends GluonSqlParameter_Abs
             if ($type == "relationMany"){
                 $existingMany = $entity->getValue($key);
                 if (!$existingMany) {
+                    //$existingMany = new GluonMap(); //@todo GluonResultValue?
                     $existingMany = [];
                 }
 

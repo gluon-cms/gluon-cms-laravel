@@ -12,8 +12,20 @@ class GluonConfig
     }
 
     public function getDefinition($type){
-        $definition = Config::get("gluonEntities.definitions.$type");
-        return $this->completeDefinition($definition);
+        $definitionRaw = Config::get("gluonEntities.definitions.$type");
+        $definition = [];
+
+        foreach ($definitionRaw as $property) {
+            list($type, $key) = explode('.', $property);
+
+            $definition[] = [
+                'property' => $property,
+                'type' => $type,
+                'key' => $key,
+            ];
+        }
+
+        return $definition;
     }
 
     public function getConstraints($type){
@@ -41,12 +53,6 @@ class GluonConfig
         return $result;
     }
 
-    public function completeDefinition($definition){
-        array_unshift($definition, 'type');
-        array_unshift($definition, 'id');
-
-        return $definition;
-    }
 
 }
 

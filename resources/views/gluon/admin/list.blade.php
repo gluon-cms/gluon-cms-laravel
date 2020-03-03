@@ -13,14 +13,16 @@
 @section('main-content')
 
     <table class="entityList">
+
+
         <thead>
         <tr>
             <th>{{ trans("gluon.entity_id") }}</th>
             
-            @foreach ($firstEntity->getTypes() as $parameter => $parameterType)
+            @foreach ($entityDefinition as $parameter)
                 <th>
-                    <span class="parameter">{{ trans("gluon.parameter_$parameter") }}</span><br>
-                    <span class="parameterType">{{ trans("gluon.parameter_type_$parameterType") }}</span>
+                    <span class="parameter">{{ trans("gluon.parameter_{$parameter['key']}") }}</span><br>
+                    <span class="parameterType">{{ trans("gluon.parameter_type_{$parameter['type']}") }}</span>
                 </th>
             @endforeach
 
@@ -34,12 +36,33 @@
             <tr>
                 <td>{{ $entity->id }}</td>
 
-                @foreach ($entity->getTypes() as $property => $type)
-                    @if(is_array($entity->getValue($property)))
-                    <td>{{ count($entity->getValue($property)) }} entities</td>
+                @foreach ($entityDefinition as $parameter)
+                    @php($value = $entity->getValue($parameter['key']))
+                    @php($max = 3) 
+
+                    @if(is_array($value))
+                    <td>
+                        <ul>
+                        @foreach (array_slice($value, 0, $max) as $item)
+                            <li class="item">{{ $item }}</li>
+                        @endforeach
+
+                        @if(count($value) > $max)
+                        <li class="item">and {{ count($value) - $max }} more</li>
+                        @endif
+
+
+                        </ul>
+                    </td>
+
+                    @elseif(! "$value")
+                    <td><span class="noValue">{{ trans("gluon.ui.noValue") }}</span></td>
+                    
                     @else
-                    <td>{{ $entity->getValue($property) }}</td>
+                    <td>{{ $value }}</td>
+
                     @endif
+
                 @endforeach
 
                 <td><a href="{{ url("admin/edit", [$entity->type, $entity->id]) }}">{{ trans("gluon.ui.action_edit") }}</a></td>

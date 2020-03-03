@@ -3,17 +3,24 @@
 namespace App\Gluon;
 
 
-class GluonMap implements \JsonSerializable
+class GluonMap implements \JsonSerializable, \IteratorAggregate, \ArrayAccess
 {
     protected $values = [];
     protected $defaultKey = null;
+    protected $counter=0;
 
     public function __construct(){
 
     }
 
     public function set($key, $value){
-        $this->values[$key] = $value;
+
+        if ($key === null){
+            $this->values[] = $value;
+        } else {
+            $this->values[$key] = $value;
+        }
+
     }
 
     public function setDefaultKey($key){
@@ -24,9 +31,35 @@ class GluonMap implements \JsonSerializable
         return $this->values;
     }
 
-    public function merge(GluonCollapsableValue $collapsableValue){
-        $this->values = array_merge($this->values, $collapsableValue->getValues());
+
+
+
+
+    public function getIterator () {
+        return new \ArrayIterator($this->values);
     }
+
+
+    public function offsetExists ( $offset ) {
+        return isset($this->values[$offset]);
+    }
+
+    public function offsetGet ( $offset ){
+        return $this->values[$offset];
+    }
+
+    public function offsetSet ( $offset , $value ) {
+
+        $this->set($offset, $value);
+    }
+
+    public function offsetUnset ( $offset ) {
+        unset($this->values[$offset]);
+    }
+
+
+
+
 
     public function jsonSerialize() {
         if (! $this->defaultKey) {
@@ -62,8 +95,13 @@ class GluonMap implements \JsonSerializable
         
     }
 
-    public function __toString(){
-        $default = $this->getDefaultValue();
-        return "$default";
+    public function __toString(){ 
+        $defaultString = $this->getDefaultValue() . "";
+
+        if($defaultString) {
+            return $defaultString;
+        }
+
+        return implode(", ", array_values($this->values));
     }
 }

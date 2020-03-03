@@ -53,14 +53,4 @@ class GluonSqlParameter_RelationOne  extends GluonSqlParameter_RelationAbstract 
     }
 
     
-
-    public function makeValueMap() {
-
-        $valueMap = new GluonMap();
-        $valueMap->setDefaultKey("default");
-
-        return $valueMap;
-
-    }
-
 }
