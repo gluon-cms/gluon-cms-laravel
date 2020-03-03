@@ -49,7 +49,7 @@ class GluonSql {
         ];
 
         $lines = $this->queryBuilder->buildAndGet($template, $conditions);
-        dd($lines);
+
         $hydrator = new GluonSqlHydrator($this);
         $result = $hydrator->hydrateList($template, $lines);
 

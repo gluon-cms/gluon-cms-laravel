@@ -58,17 +58,18 @@ class GluonSqlHydrator
                 }
 
                 $property = $this->propertySplit($propertyName);
+                $prefix = "";
 
                 $this->gluon->getParameterHelper($property['type'])->hydrateValue(
                     $line, 
                     $entity, 
                     $property['key'], 
                     $propertyValue,
-                    $property['more']
+                    $property['more'],
+                    $prefix
                 );
 
             }
-
 
         }
 

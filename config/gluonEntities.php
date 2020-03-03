@@ -63,12 +63,13 @@ return [
             'relationOne.author.text.bio',
 
             'relationOne.category.text.label',
-
+            
             'relationOne.author.relationOne.mainArticle.text.title', 
             'relationOne.author.relationOne.mainArticle.relationOne.author.text.fullname', 
             'relationOne.author.relationOne.mainArticle.relationOne.author.text.bio', 
             
             'relationOne.author.relationOne.mainArticle.relationMany.categories.text.label', 
+
             'relationMany.categories.text.label',
 
         ],

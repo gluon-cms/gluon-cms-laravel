@@ -51,7 +51,7 @@ class GluonSqlParameter_Number extends GluonSqlParameter_Abstract {
 
     }
 
-    public  function hydrateValue($line, $entity, $key, $value, $additionalKey){
+    public  function hydrateValue($line, $entity, $key, $value, $additionalKey, $prefix){
         $entity->set('number', $key, $value);
     }
 

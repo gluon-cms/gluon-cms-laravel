@@ -8,7 +8,7 @@ use App\Gluon\GluonEntityResult;
 use DB;
 use Schema;
 use Illuminate\Database\Schema\Blueprint;
-
+use Debugbar;
 
 abstract class GluonSqlParameter_RelationAbstract  extends GluonSqlParameter_Abstract {
     abstract public function getType();
@@ -100,14 +100,14 @@ abstract class GluonSqlParameter_RelationAbstract  extends GluonSqlParameter_Abs
 
 
 
-    public  function hydrateValue($line, $entity, $key, $value, $additionalKey){
+    public  function hydrateValue($line, $entity, $key, $value, $additionalKey, $prefix){
         $type = $this->getType();
 
-        $relatedEntityIdKey = "{$type}__{$key}__entity_id";
-        $relatedEntityTypeKey = "{$type}__{$key}__entity_type";
+        $relatedEntityIdKey = "{$prefix}{$type}__{$key}__entity_id";
+        $relatedEntityTypeKey = "{$prefix}{$type}__{$key}__entity_type";
 
-        $relatedEntityId = $line->$relatedEntityIdKey;
-        $relatedEntityType = $line->$relatedEntityTypeKey;
+        $relatedEntityId = $line->{$relatedEntityIdKey};
+        $relatedEntityType = $line->{$relatedEntityTypeKey};
 
         if ($additionalKey == "entity_id"){
             $relatedEntity = new GluonEntityResult($relatedEntityType, $value);
@@ -145,7 +145,8 @@ abstract class GluonSqlParameter_RelationAbstract  extends GluonSqlParameter_Abs
             $relatedEntity, 
             $subProperty['key'], 
             $value,
-            $subProperty['more']
+            $subProperty['more'],
+            "{$prefix}{$type}__{$key}__"
         );
 
     }
