@@ -4,6 +4,7 @@ namespace App\Gluon\Sql\Parameter;
 
 use App\Gluon\GluonMap;
 use DB;
+use App;
 
 use Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -67,7 +68,7 @@ class GluonSqlParameter_Text  extends GluonSqlParameter_Abstract {
 
 
     public function makeValueMap() {
-        $defaultLang = "fr"; //@todo app.lang !
+        $defaultLang = App::getLocale();
 
         $valueMap = new GluonMap();
         $valueMap->setDefaultKey($defaultLang);

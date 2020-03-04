@@ -11,11 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
 //middleware API
 Route::get('api/get/{id}', 'Gluon\GluonApiController@get');
 Route::get('api/list/{type}', 'Gluon\GluonApiController@list');
@@ -27,3 +22,8 @@ Route::get('admin/list/{type}', 'Gluon\GluonAdminController@list');
 Route::get('admin/edit/{type}/{id}', 'Gluon\GluonAdminController@edit');
 Route::get('admin/create/{type}', 'Gluon\GluonAdminController@create');
 Route::post('admin/handleForm', 'Gluon\GluonAdminController@handleForm');
+
+//Web front
+//Route::get('/', 'Front\HelloController@home')->name('hello.nolocale');
+Route::get('/{locale}', 'Front\HelloController@home')->name('hello.home');
+Route::get('/{locale}/article/{slug}-{id}', 'Front\HelloController@detail')->name('hello.detail');
