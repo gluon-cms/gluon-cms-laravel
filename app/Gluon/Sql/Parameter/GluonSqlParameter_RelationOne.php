@@ -37,6 +37,9 @@ class GluonSqlParameter_RelationOne  extends GluonSqlParameter_RelationAbstract 
     public function processSave($entityId, $parameterKey, $value, $constraints=null){
 
         //@todo handle array or scalar for $value
+        if (! $value) {
+            return;
+        }
 
         DB::table('gluon_param_relation_one')->updateOrInsert([
             'gluon_entity_id' => $entityId, 

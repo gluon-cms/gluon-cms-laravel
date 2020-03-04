@@ -5,7 +5,7 @@
         <gluon-parameter-text 
         :initial-value='@json($value)'
         :constraints='@json($constraints)'
-        input-name-prefix="entity[{{ $key }}]"
+        input-name-prefix="entity[text.{{ $key }}]"
         / >
     </div>
 

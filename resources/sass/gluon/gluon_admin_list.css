@@ -1,7 +1,6 @@
 .gluonAdmin .standardTable {
   border-collapse: collapse;
-
-  --line-color: var(--dark-color);
+  border: 1px solid var(--line-color);
 }
 
 .gluonAdmin .standardTable .noValue {
@@ -16,7 +15,7 @@
 
   vertical-align: top;
   text-align: left;
-  padding: 0.3em;
+  padding: 1em;
 
   border-left: 1px solid var(--line-color);
   border-right: 1px solid var(--line-color);
@@ -34,7 +33,7 @@
 
 
 .gluonAdmin .standardTable td {
-  padding: 0.3em;
+  padding: 1em;
   border-left: 1px solid var(--line-color);
   border-right: 1px solid var(--line-color);
 }
@@ -56,7 +55,9 @@
   background: var(--light-color);
 }
 
-
+.gluonAdmin .standardTable .actionMenu {
+  margin: 0;
+}
 
 
 .gluonAdmin .actionMenu {

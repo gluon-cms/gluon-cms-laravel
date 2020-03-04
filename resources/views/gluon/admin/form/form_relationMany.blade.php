@@ -6,12 +6,11 @@
         @if($value) 
         @foreach($value as $index => $entity)
 
-        <p>
+        <p>{{ $entity }} 
         <input type="text" value="{{ $entity->id }}" name="entity[{{ $type }}.{{ $key }}][{{ $index }}][id]" /> 
         <input type="text" value="{{ $index }}" name="entity[{{ $type }}.{{ $key }}][{{ $index }}][rank]">
-
-        ({{ $entity->id }} : {{ $entity }})
         </p>
+        
         
         @endforeach
         @endif

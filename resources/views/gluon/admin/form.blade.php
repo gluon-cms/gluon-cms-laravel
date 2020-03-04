@@ -1,6 +1,10 @@
 @extends('gluon.admin.layout')
 
-@section('page-title', trans("gluon.${entityType}_singular") . " " . $entity->id)
+@if ($entity)
+@section('main-title', trans("gluon.${entityType}_singular") . " : " . $entity->id . " - " . $entity )
+@else
+@section('main-title', trans("gluon.${entityType}_singular"))
+@endif
 
 @section('aside-content')
     
@@ -8,7 +12,7 @@
 
 @section('main-content')
     
-
+    
     <form method="POST" action="{{ url('admin/handleForm/') }}" enctype="multipart/form-data" class="standardForm">
     @csrf
 
@@ -39,10 +43,10 @@
 
     <input type="file" name="entity[file.querty][super]" />
 -->
-    <p><input type="submit" name=""></p>
+    @include('gluon.admin.form.form_submit')
     </form>
 
-    <p><a href="{{ url("admin/list", [$entityType]) }}">{{ trans("gluon.ui.action_list") }}</a></p>
+    <p class="actionMenu"><a class="standardLink" href="{{ url("admin/list", [$entityType]) }}">{{ trans("gluon.ui.action_list") }}</a></p>
 
 
 

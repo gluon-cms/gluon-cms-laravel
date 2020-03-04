@@ -14,7 +14,10 @@ return [
     'ui.actions' => 'Actions',
     'ui.action_create' => 'Créer',
     'ui.action_edit' => 'Modifier',
+    'ui.action_show' => 'Voir',
+    'ui.action_list' => 'Liste',
     'ui.action_export' => 'Exporter',
+    'ui.action_submit' => 'Enregistrer',
     'ui.noValue' => 'pas de valeur',
 
     //custom

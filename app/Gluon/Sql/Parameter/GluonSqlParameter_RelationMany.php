@@ -39,6 +39,7 @@ class GluonSqlParameter_RelationMany  extends GluonSqlParameter_RelationAbstract
     public function processSave($entityId, $parameterKey, $value, $constraints=null){
 
         //@todo handle array or scalar for $value
+        //@todo handle append?
 
         DB::table('gluon_param_relation_many')->where([
             ['gluon_entity_id', $entityId],
@@ -46,11 +47,15 @@ class GluonSqlParameter_RelationMany  extends GluonSqlParameter_RelationAbstract
         ])->delete();
 
         foreach ($value as $related) {
+            if (! isset($related["id"]) || !$related["id"]) {
+                continue;
+            }
+
             DB::table('gluon_param_relation_many')->insert([
                 'gluon_entity_id' => $entityId, 
                 'key' => $parameterKey,
                 'related_entity_id' => $related["id"],
-                'rank' => $related["rank"]
+                'rank' => isset($related["rank"]) ? $related["rank"] : 1
             ]);
         }
 

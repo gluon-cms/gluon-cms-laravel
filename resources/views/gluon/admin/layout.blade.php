@@ -21,7 +21,7 @@
                 
 
                 <div class="mainContent">
-                    <h1 class="mainContent__title">@yield('header-title')</h1>
+                    <h1 class="mainContent__title">@yield('main-title')</h1>
                     @yield('main-content')
                 </div>
                 

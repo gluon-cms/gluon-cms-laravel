@@ -35,6 +35,8 @@ html, .gluonAdmin {
     --light-color: #f4f3f6;
     --white-color: #f4f3f6;
 
+    --line-color: var(--dark-color);
+
     margin: 1rem;
     box-shadow: 0em 1em 1em 0px rgba(0,0,0,0.5);
     border-radius: 15px;

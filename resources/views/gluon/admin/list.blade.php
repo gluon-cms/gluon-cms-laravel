@@ -1,6 +1,6 @@
 @extends('gluon.admin.layout')
 
-@section('header-title', trans("gluon.${entityType}_plural"))
+@section('main-title', trans("gluon.${entityType}_plural"))
 
 @section('aside-content')
     <ul class="entityTypeList">
@@ -65,7 +65,11 @@
 
                 @endforeach
 
-                <td><a class="standardLink" href="{{ url("admin/edit", [$entity->type, $entity->id]) }}">{{ trans("gluon.ui.action_edit") }}</a></td>
+                <td>
+                    <ul class="actionMenu">
+                        <li><a class="standardLink" href="{{ url("admin/edit?readonly=true", [$entity->type, $entity->id]) }}">{{ trans("gluon.ui.action_show") }}</a></li>
+                        <li><a class="standardLink" href="{{ url("admin/edit", [$entity->type, $entity->id]) }}">{{ trans("gluon.ui.action_edit") }}</a></li>
+                </ul></td>
             </tr>  
         @endforeach
         </tbody>
