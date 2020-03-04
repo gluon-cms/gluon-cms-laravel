@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);@import url(https://fonts.googleapis.com/css?family=Love+Ya+Like+A+Sister|Lobster|Open+Sans|Roboto|Roboto+Slab:900&display=swap);.gluonAdmin {
+@import url(https://fonts.googleapis.com/css?family=Nunito);@import url(https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab:900&display=swap);.gluonAdmin {
   font-family: "Open Sans", sans-serif;
   /*font-family: 'Roboto', sans-serif;*/
 }
@@ -30,15 +30,11 @@ html,
 .gluonAdmin .page {
   overflow: auto;
   height: 100%;
-  /* TODO calc */
-  --menu-width: 15rem;
-  --dark-color: #281c3f;
+  --menu-width: 25rem;
+  --dark-color: #373638;
   --light-color: #f4f3f6;
   --white-color: #f4f3f6;
   --line-color: var(--dark-color);
-  margin: 1rem;
-  box-shadow: 0em 1em 1em 0px rgba(0, 0, 0, 0.5);
-  border-radius: 15px;
 }
 
 .gluonAdmin {
@@ -49,7 +45,14 @@ html,
   background: var(--dark-color);
   color: var(--white-color);
   padding: 1rem;
-  font-size: 1rem;
+  font-size: 0.5rem;
+  position: absolute;
+  left: 0;
+  top: 0;
+  /*
+  width: calc(var(--menu-width) - 2rem);
+  text-align: right;
+  */
 }
 
 .gluonAdmin main {
@@ -61,7 +64,8 @@ html,
   float: right;
   width: var(--menu-width);
   background: var(--light-color);
-  height: 100%;
+  height: calc(100% - 3rem);
+  padding-top: 3rem;
 }
 
 .gluonAdmin .mainContent {
@@ -124,6 +128,14 @@ html,
 .gluonAdmin .entityTypeList__entity.selected a::after,
 .gluonAdmin .entityTypeList__entity a:hover::after {
   transform: scaleX(1);
+}
+
+.gluonAdmin .entityTypeList__entity.important {
+  font-size: 1.1em;
+}
+
+.gluonAdmin .entityTypeList__entity.separated {
+  margin-top: 2em;
 }
 
 .gluonAdmin .standardTable {

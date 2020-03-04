@@ -13,17 +13,19 @@ class GluonAdminController extends \App\Http\Controllers\Controller
 
     public function list($entityType) {
         $entityTypeList = GluonConfig::getEntityTypeList();
-        $entityDefinition = GluonConfig::getDefinition($entityType);
+        $settings = GluonConfig::getSettings();
 
+        $entityDefinition = GluonConfig::getDefinition($entityType);
         $entityList = Gluon::getList($entityType);
 
         return view('gluon.admin.list', [
+            'settings' => $settings,
+            'entityTypeList' => $entityTypeList,
+
             'entityType' => $entityType,
             'entityList' => $entityList,
-            'firstEntity' => isset($entityList[0]) ? $entityList[0] : null,
             'entityDefinition' => $entityDefinition,
 
-            'entityTypeList' => $entityTypeList
             //'pagination' => $pagination
         ]);
     }
@@ -33,11 +35,18 @@ class GluonAdminController extends \App\Http\Controllers\Controller
         $entityDefinition = GluonConfig::getDefinition($entity->type);
         $entityConstraints = GluonConfig::getConstraints($entity->type);
 
+        $entityTypeList = GluonConfig::getEntityTypeList();
+        $settings = GluonConfig::getSettings();
+
         return view('gluon.admin.form', [
             'entityType' => $entity->type,
             'entityDefinition' => $entityDefinition,
             'entityConstraints' => $entityConstraints,
             'entity' => $entity,
+
+            'settings' => $settings,
+            'entityTypeList' => $entityTypeList,
+
         ]);
     }
 

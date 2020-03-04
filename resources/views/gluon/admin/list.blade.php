@@ -3,11 +3,7 @@
 @section('main-title', trans("gluon.${entityType}_plural"))
 
 @section('aside-content')
-    <ul class="entityTypeList">
-        @foreach ($entityTypeList as $type)
-        <li class="entityTypeList__entity $type @if($type==$entityType) selected @endif"><a href="{{ url("admin/list", [$type]) }}">{{ trans("gluon.${type}_plural") }}</a></li>
-        @endforeach
-    </ul>
+    @include('gluon.admin.modules.entityTypeList', ['entityTypeList' => $entityTypeList, 'settings' => $settings, 'entityType' => $entityType])
 @endsection
 
 @section('main-content')

@@ -51,3 +51,11 @@
 .gluonAdmin .entityTypeList__entity a:hover::after {
   transform: scaleX(1);
 }
+
+.gluonAdmin .entityTypeList__entity.important {
+  font-size: 1.1em;
+}
+
+.gluonAdmin .entityTypeList__entity.separated {
+  margin-top: 2em;
+}

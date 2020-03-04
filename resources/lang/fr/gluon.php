@@ -24,10 +24,14 @@ return [
     'article_plural' => 'Articles',
     'artist_plural' => 'Artistes',
     'category_plural' => 'Catégories',
+    'webconfig_plural' => 'Configuration Site',
+    'appconfig_plural' => 'Configuration App',
 
     'article_singular' => 'Article',
     'artist_singular' => 'Artiste',
     'category_singular' => 'Catégorie',
+    'webconfig_singular' => 'Configuration Site',
+    'appconfig_singular' => 'Configuration App',
 
     'parameter_title' => 'Titre',
     'parameter_content' => 'Contenu',

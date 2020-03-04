@@ -7,7 +7,7 @@
 @endif
 
 @section('aside-content')
-    
+    @include('gluon.admin.modules.entityTypeList', ['entityTypeList' => $entityTypeList, 'settings' => $settings, 'entityType' => $entityType])
 @endsection
 
 @section('main-content')
