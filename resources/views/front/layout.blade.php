@@ -6,7 +6,7 @@
 
         <title>@yield('page-title')</title>
 
-        <link rel="stylesheet" href="{{ mix('css/app-front.css') }}">
+        <link rel="stylesheet" href="{!! asset(mix('/css/app-front.css', 'front')) !!}">
 
     </head>
     <body class="">
@@ -25,7 +25,9 @@
             @yield('footer-content')
             </footer>
         </section>
+        <script src="{!! asset(mix('/js/manifest.js', 'front')) !!}"></script>
+        <script src="{!! asset(mix('/js/vendor.js', 'front')) !!}"></script>
+        <script src="{!! asset(mix('/js/app-front.js', 'front')) !!}"></script>
 
-        <script src="{{ mix('/js/app-front.js') }}"></script>
     </body>
 </html>
