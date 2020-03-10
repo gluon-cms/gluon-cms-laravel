@@ -1,17 +1,17 @@
 {
     "private": true,
     "scripts": {
-        "frontend-dev": "npm run frontend-development",
-        "frontend-development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js --env.mixfile=webpack.mix.front.js",
-        "frontend-watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js --env.mixfile=webpack.mix.front.js",
-        "frontend-prod": "npm run frontend-production",
-        "frontend-production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js --env.mixfile=webpack.mix.front.js",
-        "backend-dev": "npm run backend-development",
-        "backend-development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js --env.mixfile=webpack.mix.back.js",
-        "backend-watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js --env.mixfile=webpack.mix.back.js",
-        "backend-prod": "npm run backend-production",
-        "backend-production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js --env.mixfile=webpack.mix.back.js",
-        "build": "npm run frontend-production && npm run backend-production"
+        "front-dev": "npm run front-development",
+        "front-watch": "npm run front-development -- --watch",
+        "front-development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js --env.mixfile=webpack.mix.front.js",
+        "front-prod": "npm run front-production",
+        "front-production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js --env.mixfile=webpack.mix.front.js",
+        "back-dev": "npm run back-development",
+        "back-watch": "npm run back-development -- --watch",
+        "back-development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js --env.mixfile=webpack.mix.back.js",
+        "back-prod": "npm run back-production",
+        "back-production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js --env.mixfile=webpack.mix.back.js",
+        "build": "npm run front-prod && npm run back-prod"
     },
     "devDependencies": {
         "axios": "^0.19",

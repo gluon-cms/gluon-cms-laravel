@@ -8,7 +8,7 @@ mix.webpackConfig({ target: 'node' })
     .setPublicPath(distPath)
     .setResourceRoot('/')
     .js('resources/js/app-front.js', distPath + '/js')
-    .extract(['vue'])
+    .extract(['vue', 'axios'])
     .sass('resources/sass/app-front.scss', distPath + '/css')
     .options({
         processCssUrls: false,
