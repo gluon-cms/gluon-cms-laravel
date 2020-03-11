@@ -13,5 +13,7 @@
     </ul>
 
     <hello message-from-blade="{{ trans("app.hello.title") }}" :data-from-blade='@json(["key"=>"value"])' />
+
+    	
 </div>
 @endsection

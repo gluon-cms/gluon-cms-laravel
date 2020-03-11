@@ -115,16 +115,21 @@ abstract class GluonSqlParameter_RelationAbstract  extends GluonSqlParameter_Abs
 
         if ($additionalKey == "entity_id"){
             $relatedEntity = new GluonEntityResult($relatedEntityType, $value);
-            $this->relatedEntities[ $value ] = $relatedEntity;
+            $relatedEntityMap = new GluonMap();
+            $relatedEntityMap->setDefaultKey('entity');
+            $relatedEntityMap->set('entity', $relatedEntity);
+            $relatedEntityMap->set('deleted', false);
+
+            $this->relatedEntities[ $value ] = $relatedEntityMap;
 
             if ($type == "relationMany"){
                 $existingMany = $entity->getValue($key);
+
                 if (!$existingMany) {
-                    //$existingMany = new GluonMap(); //@todo GluonResultValue?
                     $existingMany = [];
                 }
 
-                $existingMany[] = $relatedEntity;
+                $existingMany[] = $relatedEntityMap;
                 $entity->set($type, $key, $existingMany);
                 return;
             } 
@@ -137,17 +142,22 @@ abstract class GluonSqlParameter_RelationAbstract  extends GluonSqlParameter_Abs
             return;
         }
 
+        if ($additionalKey == "rank") {
+            $relatedEntityMap = $this->relatedEntities[ $relatedEntityId ];
+            $relatedEntityMap->set('rank', $value);
+        }
+
         $subProperty = $this->propertySplit($additionalKey);
 
         if ($subProperty["key"]==null){ //not a subkey
             return;
         }
 
-        $relatedEntity = $this->relatedEntities[ $relatedEntityId ];
+        $relatedEntityMap = $this->relatedEntities[ $relatedEntityId ];
 
         $this->gluon->getParameterHelper($subProperty['type'])->hydrateValue(
             $line, 
-            $relatedEntity, 
+            $relatedEntityMap->entity, 
             $subProperty['key'], 
             $value,
             $subProperty['more'],

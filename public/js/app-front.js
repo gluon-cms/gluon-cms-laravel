@@ -37952,7 +37952,9 @@ var render = function() {
     _vm._v(" "),
     _c("p", [_vm._v("A message from blade : " + _vm._s(_vm.messageFromBlade))]),
     _vm._v(" "),
-    _c("p", [_vm._v("Some data from blade : " + _vm._s(_vm.dataFromBlade))])
+    _c("p", [
+      _vm._v("Some data from blade : " + _vm._s(_vm.dataFromBlade.title))
+    ])
   ])
 }
 var staticRenderFns = []
@@ -50308,9 +50310,9 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/neeko/Documents/Projets/Perso/Gluon/gluon-cms-laravel/resources/js/app-front.js */"./resources/js/app-front.js");
-__webpack_require__(/*! /Users/neeko/Documents/Projets/Perso/Gluon/gluon-cms-laravel/resources/sass/app-front.scss */"./resources/sass/app-front.scss");
-module.exports = __webpack_require__(/*! /Users/neeko/Documents/Projets/Perso/Gluon/gluon-cms-laravel/resources/sass/app-back.scss */"./resources/sass/app-back.scss");
+__webpack_require__(/*! /Users/neeko/Documents/Projets/Clients/Festival d'Avignon/avignon-web/resources/js/app-front.js */"./resources/js/app-front.js");
+__webpack_require__(/*! /Users/neeko/Documents/Projets/Clients/Festival d'Avignon/avignon-web/resources/sass/app-front.scss */"./resources/sass/app-front.scss");
+module.exports = __webpack_require__(/*! /Users/neeko/Documents/Projets/Clients/Festival d'Avignon/avignon-web/resources/sass/app-back.scss */"./resources/sass/app-back.scss");
 
 
 /***/ })

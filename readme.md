@@ -6,11 +6,14 @@ It provide an unified SQL data model for all your CMS needs.
 ## First installation
 
 * git clone
+* composer install
 * npm install
-* configure stuffs in .env (DB_* especially)
+* cp .env.exemple .env
+* configure stuffs in your .env (DB_* especially)
 * create your local database
 * php artisan migrate
-* php artisant db:seed
+* php artisan db:seed
+* php artisan key:generate
 
 ## Developpement
 

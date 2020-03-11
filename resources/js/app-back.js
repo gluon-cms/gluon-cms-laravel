@@ -13,11 +13,8 @@ window.Vue = require('vue');
 
 Vue.component('gluon-parameter-number', require('./components/gluon/admin/GluonParameter_Number.vue').default);
 Vue.component('gluon-parameter-text', require('./components/gluon/admin/GluonParameter_Text.vue').default);
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+Vue.component('gluon-parameter-relation-one', require('./components/gluon/admin/GluonParameter_RelationOne.vue').default);
+Vue.component('gluon-parameter-relation-many', require('./components/gluon/admin/GluonParameter_RelationMany.vue').default);
 
 const app = new Vue({
     el: '#app',

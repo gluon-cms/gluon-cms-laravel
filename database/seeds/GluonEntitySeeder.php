@@ -97,27 +97,123 @@ class GluonEntitySeeder extends Seeder
         ]);
 
 
+        //categories
+        DB::table('gluon_entity')->insert([
+            'id' => 4,
+            'type' => 'category',
+        ]);
+
+        DB::table('gluon_entity')->insert([
+            'id' => 5,
+            'type' => 'category',
+        ]);
+
+        DB::table('gluon_entity')->insert([
+            'id' => 6,
+            'type' => 'category',
+        ]);
+
+        DB::table('gluon_entity')->insert([
+            'id' => 7,
+            'type' => 'category',
+        ]);
+
+        DB::table('gluon_param_text')->insert([
+            'gluon_entity_id' => 4,
+            'key' => 'label',
+            'lang_code' => 'fr',
+            'value' => 'Théatre'
+        ]);
+
+
+        DB::table('gluon_param_text')->insert([
+            'gluon_entity_id' => 4,
+            'key' => 'label',
+            'lang_code' => 'en',
+            'value' => 'Play'
+        ]);
+
+        DB::table('gluon_param_text')->insert([
+            'gluon_entity_id' => 5,
+            'key' => 'label',
+            'lang_code' => 'fr',
+            'value' => 'Spectacle'
+        ]);
+
+
+        DB::table('gluon_param_text')->insert([
+            'gluon_entity_id' => 5,
+            'key' => 'label',
+            'lang_code' => 'en',
+            'value' => 'Show'
+        ]);
+
+        DB::table('gluon_param_text')->insert([
+            'gluon_entity_id' => 6,
+            'key' => 'label',
+            'lang_code' => 'fr',
+            'value' => 'Jeune public'
+        ]);
+
+
+        DB::table('gluon_param_text')->insert([
+            'gluon_entity_id' => 6,
+            'key' => 'label',
+            'lang_code' => 'en',
+            'value' => 'Young people'
+        ]);
+
+        DB::table('gluon_param_text')->insert([
+            'gluon_entity_id' => 7,
+            'key' => 'label',
+            'lang_code' => 'fr',
+            'value' => 'Test'
+        ]);
+
+
+        DB::table('gluon_param_text')->insert([
+            'gluon_entity_id' => 7,
+            'key' => 'label',
+            'lang_code' => 'en',
+            'value' => 'Test'
+        ]);
+
         //RELATIONS
 
-        /*
-        DB::table('gluon_param_related')->insert([
+        
+        DB::table('gluon_param_relation_many')->insert([
             'gluon_entity_id' => 1,
-            'key' => 'associated',
-            'rank' => 2,
-            'related_entity_id' => 2,
-        ]);
-
-        DB::table('gluon_param_related')->insert([
-            'gluon_entity_id' => 2,
-            'key' => 'associated',
-            'related_entity_id' => 1,
-        ]);
-
-        DB::table('gluon_param_related')->insert([
-            'gluon_entity_id' => 1,
-            'key' => 'associated',
+            'key' => 'categories',
             'rank' => 1,
-            'related_entity_id' => 3,
-        ]);*/
+            'related_entity_id' => 4,
+        ]);
+
+        DB::table('gluon_param_relation_many')->insert([
+            'gluon_entity_id' => 1,
+            'key' => 'categories',
+            'rank' => 2,
+            'related_entity_id' => 5,
+        ]);
+
+        DB::table('gluon_param_relation_many')->insert([
+            'gluon_entity_id' => 1,
+            'key' => 'categories',
+            'rank' => 3,
+            'related_entity_id' => 6,
+        ]);
+
+        DB::table('gluon_param_relation_many')->insert([
+            'gluon_entity_id' => 1,
+            'key' => 'categories',
+            'rank' => 4,
+            'related_entity_id' => 7,
+        ]);
+
+        DB::table('gluon_param_relation_many')->insert([
+            'gluon_entity_id' => 2,
+            'key' => 'categories',
+            'rank' => 1,
+            'related_entity_id' => 5,
+        ]);
     }
 }

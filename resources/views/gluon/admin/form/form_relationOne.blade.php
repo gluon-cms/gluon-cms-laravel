@@ -2,8 +2,11 @@
     <h2 class="formItem__label">{{ $key }}</h2>
 
     <div class="formItem__widget">
-        <input type="text" value="{{ $value ? $value->id : null }}" name="entity[{{ $type }}.{{ $key }}]" width="5" />
-        @if($value) <p>{{ $value }}</p> @endif
+    	<gluon-parameter-relation-one
+            :initial-value='@json($value)'
+            :constraints='@json($constraints)'
+            input-name-prefix="entity[{{ $type }}.{{ $key }}]"
+        / >
     </div>
 
 </div>

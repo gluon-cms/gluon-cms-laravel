@@ -2,7 +2,7 @@
     <div class="helloComponent">
         <p>A message from vue : {{ messageFromVue }}</p>
         <p>A message from blade : {{ messageFromBlade }}</p>
-        <p>Some data from blade : {{ dataFromBlade }}</p>
+        <p>Some data from blade : {{ dataFromBlade.title }}</p>
     </div>
 </template>
 
