@@ -26,12 +26,16 @@ return [
     'category_plural' => 'Catégories',
     'webconfig_plural' => 'Configuration Site',
     'appconfig_plural' => 'Configuration App',
+    'page_plural' => 'Pages',
+    'show_plural' => 'Spectacles',
 
     'article_singular' => 'Article',
     'artist_singular' => 'Artiste',
     'category_singular' => 'Catégorie',
     'webconfig_singular' => 'Configuration Site',
     'appconfig_singular' => 'Configuration App',
+    'page_singular' => 'Page',
+    'show_singular' => 'Spectacle',
 
     'parameter_title' => 'Titre',
     'parameter_content' => 'Contenu',
@@ -48,4 +52,14 @@ return [
     'parameter_articles' => 'Articles',
 
     'parameter_label' => 'Intitulé',
+
+    'parameter_active' => 'Activé', 
+    'parameter_mode' => 'Mode', 
+    'parameter_header' => 'Texte de l\'entête', 
+    'parameter_mainMenu' => 'Menu burger',
+    'parameter_footerMenu' => 'Menu footer',    
+
+    'parameter_showTickets' => 'Afficher liens billeterie',    
+    'parameter_showRepresentations' => 'Afficher représentation',    
+
 ];

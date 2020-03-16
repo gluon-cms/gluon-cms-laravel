@@ -18,6 +18,7 @@ class GluonSql {
         $this->parameterHelper['number'] = new Parameter\GluonSqlParameter_Number($this);
         $this->parameterHelper['relationOne'] = new Parameter\GluonSqlParameter_RelationOne($this);
         $this->parameterHelper['relationMany'] = new Parameter\GluonSqlParameter_RelationMany($this);
+        $this->parameterHelper['flag'] = new Parameter\GluonSqlParameter_Flag($this);
 
     }
 

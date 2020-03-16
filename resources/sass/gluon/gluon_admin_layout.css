@@ -29,7 +29,7 @@ html, .gluonAdmin {
     overflow: auto;
     height: 100%; 
 
-    --menu-width: 25rem;
+    --menu-width: 20rem;
     --dark-color: #373638;
     --light-color: #f4f3f6;
     --white-color: #f4f3f6;

@@ -13,7 +13,7 @@
         <section class="page" id="app">
             <header>
                 <div class="headerContent">
-                    <h1>Gluon</h1>
+                    <h1>Avignon</h1>
                 </div>
             </header>
 

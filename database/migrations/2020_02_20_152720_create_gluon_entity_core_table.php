@@ -25,6 +25,7 @@ class CreateGluonEntityCoreTable extends Migration
         Gluon::getParameterHelper('text')->createTable();
         Gluon::getParameterHelper('relationOne')->createTable();
         Gluon::getParameterHelper('relationMany')->createTable();
+        Gluon::getParameterHelper('flag')->createTable();
         
     }
 

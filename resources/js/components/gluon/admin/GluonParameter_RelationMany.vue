@@ -4,7 +4,9 @@
         
         <transition-group tag='ul' name="entity-list">
             <li v-for="(related, index) in orderedList" class="entity" :class="{deleted:related.deleted}" :key="related.entity.id">
-                <span>{{ related.entity.label.fr }}</span>
+                
+                <span v-if="related.entity.label">{{ related.entity.label.fr }}</span>
+                <span v-if="related.entity.title">{{ related.entity.title.fr }}</span>
 
                 <span class="rankChange" @click.prevent="rankChange(-1, related)">&uarr;</span> 
                 <span class="rankChange" @click.prevent="rankChange(1, related)">&darr;</span>  

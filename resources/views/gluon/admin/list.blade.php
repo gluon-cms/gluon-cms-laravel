@@ -34,23 +34,25 @@
 
                 @foreach ($entityDefinition as $parameter)
                     @php($value = $entity->getValue($parameter['key']))
-                    @php($max = 3) 
+                    @php($max = 1) 
 
                     @if(is_array($value))
                     <td>
                         <ul>
                         @foreach (array_slice($value, 0, $max) as $item)
-                            <li class="item">{{ $item }}</li>
+                            <li class="item">- {{ $item }}</li>
                         @endforeach
 
                         @if(count($value) > $max)
-                        <li class="item">and {{ count($value) - $max }} more</li>
+                        <li class="item">+ {{ count($value) - $max }} more</li>
                         @endif
 
 
                         </ul>
                     </td>
-
+                    @elseif("$value" == "1")
+                    <td>oui</td>
+                    
                     @elseif(! "$value")
                     <td><span class="noValue">{{ trans("gluon.ui.noValue") }}</span></td>
                     

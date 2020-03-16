@@ -14,14 +14,9 @@ return [
 
     'definitions' => [
 
-        'article' => [
+        'show' => [
             'text.title',
-            'text.content',
-
-            'number.score',
-
-            'relationOne.author',
-            'relationMany.categories'
+            'text.header'
         ],
 
         'artist' => [
@@ -36,9 +31,28 @@ return [
             'relationMany.articles'
         ],
 
+        'page' => [
+            'text.title',
+            'text.content',
+
+            'number.score',
+
+            'flag.active',
+
+            'relationOne.author',
+            'relationMany.categories'
+        ],
+
         'webconfig' => [
-            'text.label',
-            'text.info'
+            'text.mode',
+            'text.header',
+
+            'flag.showTickets',
+            'flag.showRepresentations',
+
+            'flag.active',
+            'relationMany.mainMenu',
+            'relationMany.footerMenu'
         ],
 
         'appconfig' => [
@@ -51,11 +65,11 @@ return [
 
         
 
-        'article.text.content' => [
+        'page.text.content' => [
             'style' => 'rich'
         ],
 
-        'article.relationOne.author' => [
+        'page.relationOne.author' => [
             'type' => 'artist', 
             'reverse' => 'relationOne.mainArticle'
         ]
@@ -63,8 +77,8 @@ return [
     ],
 
     'settings' => [
-        'article' => [
-            'css' => 'important'
+        'page' => [
+            'css' => 'separated'
         ],
 
         'webconfig' => [
@@ -74,7 +88,7 @@ return [
 
 
     'templates' => [
-        'article' => [
+        'page' => [
             'text.title',
             'text.content',
             'number.score',
@@ -86,7 +100,7 @@ return [
 
         ],
 
-        'article--detail' => [
+        'page--detail' => [
             'text.title',
             'text.content',
 
@@ -107,7 +121,20 @@ return [
             'text.label',
 
             'relationMany.articles.text.title'
-        ]
+        ], 
+
+
+        'webconfig' => [
+            'text.mode',
+            'text.header',
+
+            'flag.showTickets',
+            'flag.showRepresentations',
+
+            'flag.active',
+            'relationMany.mainMenu.text.title',
+            'relationMany.footerMenu.text.title'
+        ],
     ]
 
 

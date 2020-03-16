@@ -13,17 +13,17 @@ class GluonEntitySeeder extends Seeder
     {
         DB::table('gluon_entity')->insert([
             'id' => 1,
-            'type' => 'article',
+            'type' => 'page',
         ]);
 
         DB::table('gluon_entity')->insert([
             'id' => 2,
-            'type' => 'article',
+            'type' => 'page',
         ]);
 
         DB::table('gluon_entity')->insert([
             'id' => 3,
-            'type' => 'article',
+            'type' => 'page',
         ]);
 
         DB::table('gluon_param_text')->insert([
@@ -214,6 +214,92 @@ class GluonEntitySeeder extends Seeder
             'key' => 'categories',
             'rank' => 1,
             'related_entity_id' => 5,
+        ]);
+
+
+        /* */
+        DB::table('gluon_entity')->insert([
+            'id' => 10,
+            'type' => 'webconfig',
+        ]);
+
+        DB::table('gluon_param_text')->insert([
+            'gluon_entity_id' => 10,
+            'key' => 'mode',
+            'lang_code' => 'fr',
+            'value' => 'Pendant le festival'
+        ]);
+
+        DB::table('gluon_param_text')->insert([
+            'gluon_entity_id' => 10,
+            'key' => 'header',
+            'lang_code' => 'fr',
+            'value' => 'Bienvenue !'
+        ]);
+
+        DB::table('gluon_param_flag')->insert([
+            'gluon_entity_id' => 10,
+            'key' => 'showTickets',
+            'value' => true
+        ]);
+
+        DB::table('gluon_param_flag')->insert([
+            'gluon_entity_id' => 10,
+            'key' => 'showRepresentations',
+            'value' => true
+        ]);
+
+        DB::table('gluon_entity')->insert([
+            'id' => 11,
+            'type' => 'webconfig',
+        ]);
+
+        DB::table('gluon_param_flag')->insert([
+            'gluon_entity_id' => 11,
+            'key' => 'showRepresentations',
+            'value' => true
+        ]);
+
+        DB::table('gluon_param_text')->insert([
+            'gluon_entity_id' => 11,
+            'key' => 'mode',
+            'lang_code' => 'fr',
+            'value' => 'Post festival'
+        ]);
+
+        DB::table('gluon_param_text')->insert([
+            'gluon_entity_id' => 11,
+            'key' => 'header',
+            'lang_code' => 'fr',
+            'value' => 'Merci !'
+        ]);
+
+        DB::table('gluon_param_relation_many')->insert([
+            'gluon_entity_id' => 10,
+            'key' => 'mainMenu',
+            'rank' => 1,
+            'related_entity_id' => 1,
+        ]);
+
+        DB::table('gluon_param_relation_many')->insert([
+            'gluon_entity_id' => 10,
+            'key' => 'mainMenu',
+            'rank' => 2,
+            'related_entity_id' => 2,
+        ]);
+
+        DB::table('gluon_param_relation_many')->insert([
+            'gluon_entity_id' => 10,
+            'key' => 'mainMenu',
+            'rank' => 3,
+            'related_entity_id' => 3,
+        ]);
+
+        DB::table('gluon_param_relation_many')->insert([
+            'gluon_entity_id' => 11,
+            'key' => 'mainMenu',
+            'rank' => 1,
+            'related_entity_id' => 1,
         ]);
     }
 }

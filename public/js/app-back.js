@@ -1967,6 +1967,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "gluon-parameter-relation-many",
   props: ['propertyName', 'initialValue', 'inputNamePrefix'],
@@ -38343,7 +38345,13 @@ var render = function() {
               class: { deleted: related.deleted }
             },
             [
-              _c("span", [_vm._v(_vm._s(related.entity.label.fr))]),
+              related.entity.label
+                ? _c("span", [_vm._v(_vm._s(related.entity.label.fr))])
+                : _vm._e(),
+              _vm._v(" "),
+              related.entity.title
+                ? _c("span", [_vm._v(_vm._s(related.entity.title.fr))])
+                : _vm._e(),
               _vm._v(" "),
               _c(
                 "span",
