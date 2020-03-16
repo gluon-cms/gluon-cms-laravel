@@ -6,7 +6,7 @@
 
         <title>@yield('header-title')</title>
 
-        <link rel="stylesheet" href="{{ mix('css/app-back.css') }}">
+        <link rel="stylesheet" href="{!! asset(mix('/css/app-back.css', 'back')) !!}">
 
     </head>
     <body class="gluonAdmin">
@@ -18,13 +18,13 @@
             </header>
 
             <main>
-                
+
 
                 <div class="mainContent">
                     <h1 class="mainContent__title">@yield('main-title')</h1>
                     @yield('main-content')
                 </div>
-                
+
             </main>
 
             <aside>
@@ -35,11 +35,13 @@
 
             <footer>
                 <div class="footerContent">
-                    
+
                 </div>
             </footer>
         </section>
 
-        <script src="{{ mix('/js/app-back.js') }}"></script>
+        <script src="{!! asset(mix('/js/manifest.js', 'back')) !!}"></script>
+        <script src="{!! asset(mix('/js/vendor.js', 'back')) !!}"></script>
+        <script src="{!! asset(mix('/js/app-back.js', 'back')) !!}"></script>
     </body>
 </html>
